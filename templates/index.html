@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Axum</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+    <h1>
+        Blog
+    </h1>
+</header>
+<main class="card">
+    {% if has_posts %}
+    {% for post in posts %}
+    <article>
+        <h2>#{{ post.id }} - {{ post.title }}</h2>
+        <div class="post-content">
+            {{ post.content_html|safe }}
+        </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <p>Brak postow w tabeli.</p>
+    {% endif %}
+</main>
+</body>
+</html>
