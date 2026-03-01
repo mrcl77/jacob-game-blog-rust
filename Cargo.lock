@@ -207,6 +207,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "dotenvy"
+version = "0.15.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1aaf95b3e5c8f23aa320147307562d361db0ae0d51242340f558153b4eb2439b"
+
+[[package]]
 name = "errno"
 version = "0.3.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -309,9 +315,13 @@ version = "0.1.0"
 dependencies = [
  "askama",
  "axum",
+ "base64",
+ "dotenvy",
  "pulldown-cmark",
+ "serde",
  "tokio",
  "tokio-postgres",
+ "tower",
  "tower-http",
  "tracing",
  "tracing-subscriber",
@@ -784,6 +794,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9a8e94ea7f378bd32cbbd37198a4a91436180c5bb472411e48b5ec2e2124ae9e"
 dependencies = [
  "serde_core",
+ "serde_derive",
 ]
 
 [[package]]

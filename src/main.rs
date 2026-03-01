@@ -1,37 +1,17 @@
-mod app_state;
-mod controllers;
-mod models;
-mod routes;
-
-use crate::app_state::AppState;
-use axum::Router;
-use std::sync::Arc;
+use hello_axum::{DATABASE_URL, app_router, build_state};
 use tokio::net::TcpListener;
-use tokio_postgres::NoTls;
-use tower_http::services::ServeDir;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
-    const DATABASE_URL: &str = "postgres://postgres:postgres@localhost:5432/hello_axum";
+    dotenvy::dotenv().ok();
 
-    let (db_client, db_connection) = tokio_postgres::connect(DATABASE_URL, NoTls)
+    let admin_user = std::env::var("ADMIN_USER").expect("ADMIN_USER not set");
+    let admin_pass = std::env::var("ADMIN_PASS").expect("ADMIN_PASS not set");
+
+    let state = build_state(DATABASE_URL)
         .await
         .expect("Cannot connect to PostgreSQL. Make sure DB is running.");
-
-    tokio::spawn(async move {
-        if let Err(err) = db_connection.await {
-            tracing::error!("Database connection error: {}", err);
-        }
-    });
-
-    let state = AppState {
-        db: Arc::new(db_client),
-    };
-
-    let app = Router::new()
-        .merge(routes::posts_routes::router())
-        .with_state(state)
-        .nest_service("/static", ServeDir::new("static"));
+    let app = app_router(state, &admin_user, &admin_pass);
 
     let listener = TcpListener::bind(("127.0.0.1", 3000)).await?;
 
