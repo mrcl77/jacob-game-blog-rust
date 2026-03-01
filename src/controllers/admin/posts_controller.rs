@@ -62,10 +62,7 @@ pub async fn new() -> impl IntoResponse {
     HtmlTemplate(NewTemplate {})
 }
 
-pub async fn create(
-    State(state): State<AppState>,
-    Form(form): Form<PostForm>,
-) -> Response {
+pub async fn create(State(state): State<AppState>, Form(form): Form<PostForm>) -> Response {
     match Post::create(&state.db, &form.title, &form.content).await {
         Ok(_) => Redirect::to("/admin/posts").into_response(),
         Err(err) => {

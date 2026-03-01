@@ -78,7 +78,8 @@ impl Post {
     }
 
     pub async fn delete(db: &Client, id: i32) -> Result<(), tokio_postgres::Error> {
-        db.execute("DELETE FROM posts WHERE id = $1", &[&id]).await?;
+        db.execute("DELETE FROM posts WHERE id = $1", &[&id])
+            .await?;
         Ok(())
     }
 }
