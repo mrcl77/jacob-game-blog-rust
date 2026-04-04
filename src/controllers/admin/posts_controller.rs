@@ -58,6 +58,10 @@ pub async fn index(State(state): State<AppState>) -> Response {
     }
 }
 
+pub async fn admin_root() -> impl IntoResponse {
+    Redirect::to("/admin/posts")
+}
+
 pub async fn new() -> impl IntoResponse {
     HtmlTemplate(NewTemplate {})
 }

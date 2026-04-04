@@ -7,6 +7,7 @@ use axum::{
 
 pub fn router() -> Router<AppState> {
     Router::new()
+        .route("/admin", get(posts_controller::admin_root))
         .route(
             "/admin/posts",
             get(posts_controller::index).post(posts_controller::create),
