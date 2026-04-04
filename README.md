@@ -1,89 +1,159 @@
-# Hello Axum Blog
+# Hello Axum
 
-A small blog app built while learning Rust.
-
-It uses:
-- `axum` for HTTP routing
-- `askama` for HTML templates
-- `tokio-postgres` for PostgreSQL
-- `pulldown-cmark` to render Markdown post content
+A minimal blog application with an admin panel, built with Rust and Axum.
 
 ## Features
 
-- Home page with latest posts
-- PostgreSQL integration
-- Markdown support in post content
-- Simple dark blog-like UI
-- Basic code organization (`models` module)
+**Public blog** (`/`)
+- Displays the latest 20 posts with rendered Markdown content
+- Dark, minimal read-only interface
+
+**Admin panel** (`/admin`)
+- Full CRUD for blog posts (create, edit, delete)
+- Live Markdown preview in the editor
+- Protected with HTTP Basic Authentication
+- Responsive dark theme with no external CSS frameworks
+- UI strings extracted into a translation module (`src/i18n.rs`)
 
 ## Tech Stack
 
-- Rust (Edition 2024)
-- Axum
-- Tokio
-- Askama
-- PostgreSQL
+| Component    | Crate                                        |
+|--------------|----------------------------------------------|
+| HTTP server  | [axum](https://crates.io/crates/axum) 0.8    |
+| Runtime      | [tokio](https://crates.io/crates/tokio)      |
+| Templates    | [askama](https://crates.io/crates/askama)     |
+| Database     | [tokio-postgres](https://crates.io/crates/tokio-postgres) |
+| Markdown     | [pulldown-cmark](https://crates.io/crates/pulldown-cmark) |
+
+Rust Edition 2024.
 
 ## Project Structure
 
-```text
-.
-├── src
-│   ├── main.rs
-│   └── models
-│       ├── mod.rs
-│       └── post.rs
-├── templates
-│   └── index.html
-└── static
-    └── style.css
+```
+src/
+  main.rs                          # Entry point, binds to 127.0.0.1:3000
+  lib.rs                           # Router, middleware, DB connection
+  app_state.rs                     # Shared application state (DB client)
+  i18n.rs                          # UI translations (English)
+  models/
+    post.rs                        # Post model with CRUD queries
+  controllers/
+    posts_controller.rs            # Public blog handler
+    admin/
+      posts_controller.rs          # Admin CRUD handlers
+  routes/
+    posts_routes.rs                # GET / and /posts
+    admin_routes.rs                # All /admin/* routes
+templates/
+  index.html                       # Public blog template
+  admin/
+    layout.html                    # Admin base layout
+    posts/
+      index.html                   # Posts list
+      new.html                     # New post form
+      edit.html                    # Edit post form
+static/
+  style.css                        # Public blog styles
+  admin.css                        # Admin panel styles
+tests/
+  index_and_seed.rs                # Integration tests
 ```
 
 ## Getting Started
 
-### 1. Prerequisites
+### Prerequisites
 
-- Rust + Cargo installed
+- [Rust](https://rustup.rs/) (stable)
 - PostgreSQL running locally
-- `psql` CLI available
 
-### 2. Create database
+### 1. Create the database
 
 ```bash
 createdb hello_axum
 ```
 
-### 3. Create posts table
+### 2. Create the posts table
 
 ```bash
-psql -U postgres -d hello_axum -c "CREATE TABLE IF NOT EXISTS posts (id SERIAL PRIMARY KEY, title TEXT NOT NULL, content TEXT NOT NULL DEFAULT '');"
+psql -U postgres -d hello_axum -c \
+  "CREATE TABLE IF NOT EXISTS posts (
+     id      SERIAL PRIMARY KEY,
+     title   TEXT NOT NULL,
+     content TEXT NOT NULL DEFAULT ''
+   );"
 ```
 
-### 4. Add sample posts
+### 3. Configure environment variables
 
-```bash
-psql -U postgres -d hello_axum -c "INSERT INTO posts (title, content) VALUES ('First post', '# Hello\nThis is **Markdown**.'), ('Second post', '## Rust + Axum\n- fast\n- simple\n- fun');"
+Create a `.env` file in the project root (or export the variables):
+
+```
+ADMIN_USER=admin
+ADMIN_PASS=your_password
 ```
 
-### 5. Run the app
+These credentials protect the admin panel via HTTP Basic Auth.
+
+### 4. Run the application
 
 ```bash
 cargo run
 ```
 
-Open: `http://127.0.0.1:3000`
+The server starts at **http://127.0.0.1:3000**.
 
-## Database Configuration
+### 5. Open in browser
 
-Right now the app uses a hardcoded database URL in `src/main.rs`:
+| URL               | Description                     |
+|--------------------|---------------------------------|
+| `/`                | Public blog (latest 20 posts)   |
+| `/posts`           | Same as `/`                     |
+| `/admin`           | Redirects to `/admin/posts`     |
+| `/admin/posts`     | List all posts                  |
+| `/admin/posts/new` | Create a new post               |
+| `/admin/posts/:id/edit` | Edit an existing post      |
 
-```rust
-const DATABASE_URL: &str = "postgres://postgres:postgres@localhost:5432/hello_axum";
+## Database
+
+The connection string is defined in `src/lib.rs`:
+
+```
+postgres://postgres:postgres@localhost:5432/hello_axum
 ```
 
-If your local PostgreSQL setup is different, edit this value.
+Adjust it if your local PostgreSQL uses different credentials or port.
 
-## Notes
+### Seed sample data
 
-- Markdown is rendered to HTML on the server side.
-- `content_html` is displayed in template with `|safe`, so for public user input you should add HTML sanitization in a next step.
+```bash
+psql -U postgres -d hello_axum -c \
+  "INSERT INTO posts (title, content) VALUES
+     ('First post',  '# Hello\nThis is **Markdown**.'),
+     ('Second post', '## Rust + Axum\n- fast\n- simple\n- fun');"
+```
+
+## Running Tests
+
+Tests require a running PostgreSQL instance with the `hello_axum` database:
+
+```bash
+cargo test
+```
+
+The test suite seeds its own data, runs assertions, and cleans up after itself.
+
+## CI
+
+The project includes a GitHub Actions workflow (`.github/workflows/tests.yml`) that runs on every push to `main` and on pull requests:
+
+1. **Lint** -- `cargo fmt --check` and `cargo clippy`
+2. **Test** -- `cargo test` against a PostgreSQL 16 service container
+
+## Translations
+
+All admin panel UI strings live in `src/i18n.rs`. The default language is English. To add a new language, define a new `Translations` constant and pass it to the templates in the controller.
+
+## Security Notes
+
+- The admin panel is protected by HTTP Basic Authentication. Credentials are read from `ADMIN_USER` and `ADMIN_PASS` environment variables at startup.
+- Markdown is rendered to HTML server-side and output with `|safe` in templates. For public user-submitted content, add HTML sanitization.

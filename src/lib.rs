@@ -1,5 +1,6 @@
 pub mod app_state;
 pub mod controllers;
+pub mod i18n;
 pub mod models;
 pub mod routes;
 

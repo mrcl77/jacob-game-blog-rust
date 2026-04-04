@@ -1,33 +1,31 @@
 {% extends "admin/layout.html" %}
 
-{% block title %}Nowy post{% endblock %}
-{% block page_title %}Nowy post{% endblock %}
+{% block title %}{{ t.page_new_post }}{% endblock %}
+{% block page_title %}{{ t.page_new_post }}{% endblock %}
 
 {% block content %}
 <div class="card">
   <div class="card-body">
     <form method="post" action="/admin/posts" data-markdown-editor>
-      <div class="mb-3">
-        <label class="form-label">Tytuł</label>
-        <input type="text" name="title" class="form-control" required autofocus>
+      <div class="form-group">
+        <label class="form-label">{{ t.form_title }}</label>
+        <input type="text" name="title" class="form-input" required autofocus>
       </div>
-      <div class="mb-4">
+      <div class="form-group">
         <div class="editor-grid">
-          <div>
-            <label class="form-label">Treść (Markdown)</label>
-            <textarea name="content" class="form-control" rows="18" required data-markdown-input></textarea>
+          <div class="editor-col">
+            <label class="form-label">{{ t.form_content }}</label>
+            <textarea name="content" class="form-textarea" required data-markdown-input></textarea>
           </div>
-          <div>
-            <label class="form-label">Podgląd na żywo</label>
-            <div class="markdown-preview">
-              <div class="markdown-preview-body" data-markdown-preview></div>
-            </div>
+          <div class="editor-col">
+            <label class="form-label">{{ t.form_preview }}</label>
+            <div class="preview-pane" data-markdown-preview></div>
           </div>
         </div>
       </div>
-      <div class="d-flex gap-2">
-        <a href="/admin/posts" class="btn btn-outline-secondary">Anuluj</a>
-        <button type="submit" class="btn btn-primary">Zapisz</button>
+      <div class="form-actions">
+        <a href="/admin/posts" class="btn btn-secondary">{{ t.form_cancel }}</a>
+        <button type="submit" class="btn btn-primary">{{ t.form_save }}</button>
       </div>
     </form>
   </div>

@@ -1,4 +1,5 @@
 use crate::app_state::AppState;
+use crate::i18n::{self, Translations};
 use crate::models::post::Post;
 use askama::Template;
 use axum::{
@@ -13,16 +14,20 @@ use serde::Deserialize;
 #[template(path = "admin/posts/index.html")]
 struct IndexTemplate {
     posts: Vec<Post>,
+    t: &'static Translations,
 }
 
 #[derive(Template)]
 #[template(path = "admin/posts/new.html")]
-struct NewTemplate {}
+struct NewTemplate {
+    t: &'static Translations,
+}
 
 #[derive(Template)]
 #[template(path = "admin/posts/edit.html")]
 struct EditTemplate {
     post: Post,
+    t: &'static Translations,
 }
 
 struct HtmlTemplate<T>(T);
@@ -50,7 +55,11 @@ pub struct PostForm {
 
 pub async fn index(State(state): State<AppState>) -> Response {
     match Post::all(&state.db).await {
-        Ok(posts) => HtmlTemplate(IndexTemplate { posts }).into_response(),
+        Ok(posts) => HtmlTemplate(IndexTemplate {
+            posts,
+            t: &i18n::EN,
+        })
+        .into_response(),
         Err(err) => {
             tracing::error!("DB error: {}", err);
             StatusCode::INTERNAL_SERVER_ERROR.into_response()
@@ -63,7 +72,7 @@ pub async fn admin_root() -> impl IntoResponse {
 }
 
 pub async fn new() -> impl IntoResponse {
-    HtmlTemplate(NewTemplate {})
+    HtmlTemplate(NewTemplate { t: &i18n::EN })
 }
 
 pub async fn create(State(state): State<AppState>, Form(form): Form<PostForm>) -> Response {
@@ -78,7 +87,11 @@ pub async fn create(State(state): State<AppState>, Form(form): Form<PostForm>) -
 
 pub async fn edit(State(state): State<AppState>, Path(id): Path<i32>) -> Response {
     match Post::find(&state.db, id).await {
-        Ok(Some(post)) => HtmlTemplate(EditTemplate { post }).into_response(),
+        Ok(Some(post)) => HtmlTemplate(EditTemplate {
+            post,
+            t: &i18n::EN,
+        })
+        .into_response(),
         Ok(None) => StatusCode::NOT_FOUND.into_response(),
         Err(err) => {
             tracing::error!("DB error: {}", err);

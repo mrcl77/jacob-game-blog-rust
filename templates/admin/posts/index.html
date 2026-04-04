@@ -1,44 +1,42 @@
 {% extends "admin/layout.html" %}
 
-{% block title %}Posty{% endblock %}
-{% block page_title %}Posty{% endblock %}
+{% block title %}{{ t.posts_title }}{% endblock %}
+{% block page_title %}{{ t.posts_title }}{% endblock %}
 
 {% block page_actions %}
-<a href="/admin/posts/new" class="btn btn-primary">Nowy post</a>
+<a href="/admin/posts/new" class="btn btn-primary">{{ t.posts_new }}</a>
 {% endblock %}
 
 {% block content %}
 <div class="card">
-  <div class="table-responsive">
-    <table class="table table-vcenter card-table">
-      <thead>
-        <tr>
-          <th style="width:60px">ID</th>
-          <th>Tytuł</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for post in posts %}
-        <tr>
-          <td class="text-muted">{{ post.id }}</td>
-          <td>{{ post.title }}</td>
-          <td class="text-end">
-            <a href="/admin/posts/{{ post.id }}/edit" class="btn btn-sm btn-outline-secondary">Edytuj</a>
-            <form method="post" action="/admin/posts/{{ post.id }}/delete" style="display:inline">
-              <button type="submit" class="btn btn-sm btn-outline-danger"
-                onclick="return confirm('Usunąć post?')">Usuń</button>
-            </form>
-          </td>
-        </tr>
-        {% endfor %}
-        {% if posts.is_empty() %}
-        <tr>
-          <td colspan="3" class="text-center text-muted py-4">Brak postów</td>
-        </tr>
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-id">ID</th>
+        <th>{{ t.posts_col_title }}</th>
+        <th class="col-actions">{{ t.posts_col_actions }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+      <tr>
+        <td class="col-id">{{ post.id }}</td>
+        <td>{{ post.title }}</td>
+        <td class="col-actions">
+          <a href="/admin/posts/{{ post.id }}/edit" class="btn btn-sm btn-secondary">{{ t.posts_edit }}</a>
+          <form method="post" action="/admin/posts/{{ post.id }}/delete">
+            <button type="submit" class="btn btn-sm btn-danger"
+              onclick="return confirm('{{ t.posts_delete_confirm }}')">{{ t.posts_delete }}</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+      {% if posts.is_empty() %}
+      <tr>
+        <td colspan="3" class="empty-state">{{ t.posts_empty }}</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}
