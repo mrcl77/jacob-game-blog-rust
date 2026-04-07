@@ -3,27 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Axum</title>
+    <title>{{ post.title }} - Hello Axum</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 <header>
     <h1>
-        Blog
+        <a href="/">Blog</a>
     </h1>
 </header>
 <main class="card">
-    {% if has_posts %}
-    {% for post in posts %}
+    <a href="/" class="back-link">&larr; Wstecz</a>
     <article>
-        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
-        <p class="post-preview">{{ post.preview }}</p>
+        <h2>{{ post.title }}</h2>
+        <div class="post-content">
+            {{ post.content_html|safe }}
+        </div>
     </article>
-    <hr>
-    {% endfor %}
-    {% else %}
-    <p>Brak postow w tabeli.</p>
-    {% endif %}
 </main>
 </body>
 </html>

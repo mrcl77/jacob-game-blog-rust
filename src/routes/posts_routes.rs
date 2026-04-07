@@ -6,4 +6,5 @@ pub fn router() -> Router<AppState> {
     Router::new()
         .route("/", get(posts_controller::index))
         .route("/posts", get(posts_controller::index))
+        .route("/posts/{id}", get(posts_controller::show))
 }

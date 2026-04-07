@@ -25,6 +25,15 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 a:hover {
+  color: #93c5fd;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -32,24 +41,84 @@ main {
   margin: 0 auto;
   width: 100%;
   color: #e5e7eb;
-  padding: 22px 0 36px;
+  padding: 32px 0 48px;
 }
 
 article {
   display: flex;
-  padding: 18px 14px 20px;
+  padding: 20px 0;
   width: min(92vw, 780px);
   flex-direction: column;
   margin: 0 auto;
-  border-bottom: 1px solid #222222;
-  gap: 8px;
+  gap: 10px;
+}
+
+main hr {
+  width: min(92vw, 780px);
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #4b5575, transparent);
+  margin: 4px auto;
+}
+
+main hr:last-child {
+  display: none;
+}
+
+.back-link {
+  width: min(92vw, 780px);
+  margin: 0 auto 8px;
+  font-size: 0.92rem;
+  color: #6b7280;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 article h2 {
-  font-size: 1.45em;
+  font-size: 1.5em;
   margin: 0;
-  line-height: 1.25;
-  color: #f8fafc;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+article h2 a {
+  color: #f0f2f8;
+  text-decoration: none;
+  transition: color 0.2s;
+  background: linear-gradient(to right, #93c5fd, #60a5fa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+article h2 a:hover {
+  background: linear-gradient(to right, #bfdbfe, #93c5fd);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+
+.post-preview {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #8b92a0;
+  margin: 4px 0 0;
 }
 
 .post-content {
@@ -145,4 +214,41 @@ article h2 {
 .post-content thead th {
   background: #111827;
   color: #f3f4f6;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.post-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #4b5575, transparent);
+  margin: 24px 0;
+}
+
+.post-content input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: #60a5fa;
+}
+
+.post-content del {
+  color: #6b7280;
+}
+
+.post-content sup.footnote-ref a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.post-content .footnote-definition {
+  font-size: 0.9em;
+  color: #9ca3af;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #1f2937;
 }

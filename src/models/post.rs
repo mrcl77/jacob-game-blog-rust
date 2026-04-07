@@ -7,6 +7,7 @@ pub struct Post {
     pub title: String,
     pub content: String,
     pub content_html: String,
+    pub preview: String,
 }
 
 impl Post {
@@ -26,6 +27,7 @@ impl Post {
                     id: row.get("id"),
                     title: row.get("title"),
                     content_html: markdown_to_html(&content),
+                    preview: markdown_to_plain_preview(&content, 3),
                     content,
                 }
             })
@@ -45,6 +47,7 @@ impl Post {
                 id: row.get("id"),
                 title: row.get("title"),
                 content_html: markdown_to_html(&content),
+                preview: markdown_to_plain_preview(&content, 3),
                 content,
             }
         }))
@@ -84,12 +87,84 @@ impl Post {
     }
 }
 
+fn markdown_options() -> Options {
+    Options::ENABLE_STRIKETHROUGH
+        | Options::ENABLE_TABLES
+        | Options::ENABLE_TASKLISTS
+        | Options::ENABLE_HEADING_ATTRIBUTES
+        | Options::ENABLE_FOOTNOTES
+}
+
 fn markdown_to_html(markdown: &str) -> String {
-    let parser = Parser::new_ext(
-        markdown,
-        Options::ENABLE_STRIKETHROUGH | Options::ENABLE_TABLES,
-    );
+    let parser = Parser::new_ext(markdown, markdown_options());
     let mut html_output = String::new();
     html::push_html(&mut html_output, parser);
     html_output
+}
+
+fn markdown_to_plain_preview(markdown: &str, max_sentences: usize) -> String {
+    use pulldown_cmark::{Event, Tag, TagEnd};
+
+    let parser = Parser::new_ext(markdown, markdown_options());
+
+    let mut plain = String::new();
+    let mut skip_depth: usize = 0;
+    for event in parser {
+        match event {
+            Event::Start(Tag::Image { .. }) => skip_depth += 1,
+            Event::End(TagEnd::Image) => skip_depth -= 1,
+            _ if skip_depth > 0 => continue,
+            Event::Text(text) | Event::Code(text) => plain.push_str(&text),
+            Event::SoftBreak | Event::HardBreak => plain.push(' '),
+            Event::Start(Tag::Paragraph) if !plain.is_empty() => plain.push(' '),
+            Event::End(TagEnd::Paragraph) => plain.push(' '),
+            _ => {}
+        }
+    }
+
+    // Collapse multiple spaces
+    let mut collapsed = String::with_capacity(plain.len());
+    let mut prev_space = false;
+    for ch in plain.chars() {
+        if ch.is_whitespace() {
+            if !prev_space {
+                collapsed.push(' ');
+            }
+            prev_space = true;
+        } else {
+            collapsed.push(ch);
+            prev_space = false;
+        }
+    }
+    let plain = collapsed;
+
+    // Take the first N sentences (split on '. ', '! ', '? ')
+    let mut count = 0;
+    let mut end = plain.len();
+    let chars: Vec<char> = plain.chars().collect();
+    for (i, ch) in chars.iter().enumerate() {
+        if (*ch == '.' || *ch == '!' || *ch == '?')
+            && chars.get(i + 1).map_or(true, |c| c.is_whitespace())
+        {
+            count += 1;
+            if count >= max_sentences {
+                end = chars[..=i].iter().collect::<String>().len();
+                break;
+            }
+        }
+    }
+
+    plain[..end].trim().to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn preview_strips_markdown() {
+        let md = "# Header\n\n**Bold text** and *italic*. [A link](http://example.com). ![image](img.png)\n\n`code` and ~~strikethrough~~.";
+        let preview = markdown_to_plain_preview(md, 3);
+        assert_eq!(preview, "Header Bold text and italic. A link. code and strikethrough.");
+    }
 }

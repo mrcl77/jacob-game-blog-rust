@@ -2,7 +2,7 @@ use crate::app_state::AppState;
 use crate::models::post::Post;
 use askama::Template;
 use axum::{
-    extract::State,
+    extract::{Path, State},
     http::StatusCode,
     response::{Html, IntoResponse, Response},
 };
@@ -37,6 +37,23 @@ pub async fn index(State(state): State<AppState>) -> Response {
             let has_posts = !posts.is_empty();
             HtmlTemplate(IndexTemplate { posts, has_posts }).into_response()
         }
+        Err(err) => {
+            tracing::error!("Database query error: {}", err);
+            StatusCode::INTERNAL_SERVER_ERROR.into_response()
+        }
+    }
+}
+
+#[derive(Template)]
+#[template(path = "post.html")]
+struct ShowTemplate {
+    post: Post,
+}
+
+pub async fn show(State(state): State<AppState>, Path(id): Path<i32>) -> Response {
+    match Post::find(&state.db, id).await {
+        Ok(Some(post)) => HtmlTemplate(ShowTemplate { post }).into_response(),
+        Ok(None) => StatusCode::NOT_FOUND.into_response(),
         Err(err) => {
             tracing::error!("Database query error: {}", err);
             StatusCode::INTERNAL_SERVER_ERROR.into_response()
