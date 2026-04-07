@@ -3,16 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Axum</title>
+    <title>Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 <header>
-    <h1>
-        Blog
-    </h1>
+    <div class="header-inner">
+        <span class="logo">blog<span class="logo-dot">.</span></span>
+        <p class="tagline">thoughts, code & other things</p>
+    </div>
 </header>
-<main class="card">
+<main>
     {% if has_posts %}
     {% for post in posts %}
     <article>
@@ -22,8 +26,11 @@
     <hr>
     {% endfor %}
     {% else %}
-    <p>Brak postow w tabeli.</p>
+    <p class="empty">Brak postów.</p>
     {% endif %}
 </main>
+<footer>
+    <span>powered by axum + rust</span>
+</footer>
 </body>
 </html>

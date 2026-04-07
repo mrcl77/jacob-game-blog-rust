@@ -3,23 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ post.title }} - Hello Axum</title>
+    <title>{{ post.title }} — Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 <header>
-    <h1>
-        <a href="/">Blog</a>
-    </h1>
+    <div class="header-inner">
+        <span class="logo"><a href="/">blog<span class="logo-dot">.</span></a></span>
+    </div>
 </header>
-<main class="card">
-    <a href="/" class="back-link">&larr; Wstecz</a>
-    <article>
+<main>
+    <a href="/" class="back-link">&larr; Wszystkie posty</a>
+    <article class="post-single">
         <h2>{{ post.title }}</h2>
         <div class="post-content">
             {{ post.content_html|safe }}
         </div>
     </article>
 </main>
+<footer>
+    <span>powered by axum + rust</span>
+</footer>
 </body>
 </html>
