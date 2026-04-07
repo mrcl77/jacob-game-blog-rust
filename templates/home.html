@@ -3,33 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ t.nav_posts }} — {{ t.site_name }}</title>
+    <title>{{ t.site_name }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<header>
-    <div class="header-inner">
-        <span class="logo"><a href="/">{{ t.site_name }}<span class="logo-dot">.</span></a></span>
-        <nav class="header-nav">
+<main class="home">
+    <div class="hero">
+        <span class="logo logo-lg">{{ t.site_name }}<span class="logo-dot">.</span></span>
+        <p class="hero-desc">{{ t.site_tagline }}</p>
+        <nav class="hero-nav">
             <a href="/posts">{{ t.nav_posts }}</a>
         </nav>
     </div>
-</header>
-<main>
-    {% if has_posts %}
-    {% for post in posts %}
-    <article>
-        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
-        <p class="post-preview">{{ post.preview }}</p>
-    </article>
-    <hr>
-    {% endfor %}
-    {% else %}
-    <p class="empty">{{ t.no_posts }}</p>
-    {% endif %}
 </main>
 <footer>
     <span>{{ t.site_footer }}</span>

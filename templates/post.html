@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ post.title }} — Blog</title>
+    <title>{{ post.title }} — {{ t.site_name }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,11 +12,14 @@
 <body>
 <header>
     <div class="header-inner">
-        <span class="logo"><a href="/">blog<span class="logo-dot">.</span></a></span>
+        <span class="logo"><a href="/">{{ t.site_name }}<span class="logo-dot">.</span></a></span>
+        <nav class="header-nav">
+            <a href="/posts">{{ t.nav_posts }}</a>
+        </nav>
     </div>
 </header>
 <main>
-    <a href="/" class="back-link">&larr; Wszystkie posty</a>
+    <a href="/posts" class="back-link">&larr; {{ t.back_all_posts }}</a>
     <article class="post-single">
         <h2>{{ post.title }}</h2>
         <div class="post-content">
@@ -25,7 +28,7 @@
     </article>
 </main>
 <footer>
-    <span>powered by axum + rust</span>
+    <span>{{ t.site_footer }}</span>
 </footer>
 </body>
 </html>

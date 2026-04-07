@@ -1,10 +1,15 @@
-/// All UI-facing strings for the admin panel.
+/// All UI-facing strings.
 /// Kept in one place so translations are easy to swap.
 pub struct Translations {
-    // Navigation
+    // Public site
+    pub site_name: &'static str,
+    pub site_tagline: &'static str,
+    pub site_footer: &'static str,
     pub nav_posts: &'static str,
+    pub back_all_posts: &'static str,
+    pub no_posts: &'static str,
 
-    // Posts list
+    // Posts list (admin)
     pub posts_title: &'static str,
     pub posts_new: &'static str,
     pub posts_col_title: &'static str,
@@ -29,7 +34,12 @@ pub struct Translations {
 }
 
 pub const EN: Translations = Translations {
+    site_name: "blog",
+    site_tagline: "thoughts, code & other things",
+    site_footer: "powered by axum + rust",
     nav_posts: "Posts",
+    back_all_posts: "All posts",
+    no_posts: "No posts yet.",
 
     posts_title: "Posts",
     posts_new: "New Post",
