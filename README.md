@@ -12,7 +12,7 @@ A minimal blog application with an admin panel, built with Rust and Axum.
 - Full CRUD for blog posts (create, edit, delete)
 - Live Markdown preview in the editor
 - Protected with HTTP Basic Authentication
-- Responsive dark theme with no external CSS frameworks
+- Responsive dark theme styled with Tailwind CSS
 - UI strings extracted into a translation module (`src/i18n.rs`)
 
 ## Tech Stack
@@ -24,12 +24,14 @@ A minimal blog application with an admin panel, built with Rust and Axum.
 | Templates    | [askama](https://crates.io/crates/askama)     |
 | Database     | [tokio-postgres](https://crates.io/crates/tokio-postgres) |
 | Markdown     | [pulldown-cmark](https://crates.io/crates/pulldown-cmark) |
+| CSS          | [Tailwind CSS v4](https://tailwindcss.com)   |
 
 Rust Edition 2024.
 
 ## Project Structure
 
 ```
+package.json                       # Tailwind configuration & scripts
 src/
   main.rs                          # Entry point, binds to 127.0.0.1:3000
   lib.rs                           # Router, middleware, DB connection
@@ -55,6 +57,8 @@ templates/
 static/
   style.css                        # Public blog styles
   admin.css                        # Admin panel styles
+  input.css                        # Tailwind configuration & sources
+  tailwind.css                     # Compiled CSS from Tailwind
 tests/
   index_and_seed.rs                # Integration tests
 ```
@@ -64,6 +68,7 @@ tests/
 ### Prerequisites
 
 - [Rust](https://rustup.rs/) (stable)
+- [Node.js](https://nodejs.org/) & npm (for Tailwind CSS)
 - PostgreSQL running locally
 
 ### 1. Create the database
@@ -94,7 +99,26 @@ ADMIN_PASS=your_password
 
 These credentials protect the admin panel via HTTP Basic Auth.
 
-### 4. Run the application
+### 4. Setup styling (Tailwind CSS)
+
+Install the necessary development dependencies:
+
+```bash
+npm install
+```
+
+Start the Tailwind compiler in watch mode:
+
+```bash
+npm run dev:css
+```
+Leave this process running in the background.
+
+> **Note**: For production environments, compile the optimized production CSS using `npm run build:css`.
+
+### 5. Run the application
+
+In a separate terminal, start the Rust server:
 
 ```bash
 cargo run
@@ -102,7 +126,7 @@ cargo run
 
 The server starts at **http://127.0.0.1:3000**.
 
-### 5. Open in browser
+### 6. Open in browser
 
 | URL               | Description                     |
 |--------------------|---------------------------------|
