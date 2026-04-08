@@ -1,35 +1,164 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ post.title }} — {{ t.site_name }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/tailwind.css">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-<header>
-    <div class="header-inner">
-        <span class="logo"><a href="/">{{ t.site_name }}<span class="logo-dot">.</span></a></span>
-        <nav class="header-nav">
-            <a href="/posts">{{ t.nav_posts }}</a>
-        </nav>
-    </div>
-</header>
-<main>
-    <a href="/posts" class="back-link">&larr; {{ t.back_all_posts }}</a>
-    <article class="post-single">
-        <h2>{{ post.title }}</h2>
-        <div class="post-content">
-            {{ post.content_html|safe }}
-        </div>
-    </article>
-</main>
-<footer>
-    <span>{{ t.site_footer }}</span>
-</footer>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} — {{ t.site_name }}{% endblock %}
+
+{% block nav_posts_class %}text-[#4dc9f1] border-b-4 border-[#4dc9f1] pb-1{% endblock %}
+
+{% block content %}
+    <main class="max-w-[1200px] mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+        <!-- Sidebar / Navigation -->
+        <aside class="md:w-64 flex-shrink-0">
+            <div class="sticky top-24">
+                <a class="inline-flex items-center gap-2 font-pixel text-[10px] text-primary hover:text-white transition-colors mb-12 group"
+                    href="/posts">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    <span>{{ t.back_all_posts }}</span>
+                </a>
+                <div class="bg-surface-container-low border-l-4 border-primary p-6 block-shadow mb-8">
+                    <h4 class="font-pixel text-[10px] text-primary-dim mb-6">LOG INDEX</h4>
+                    <nav class="flex flex-col gap-4 font-headline uppercase font-bold tracking-tighter text-sm">
+                        <!-- We will keep the default anchor links pointing back to content sections in the template as placeholders -->
+                        <a class="text-on-surface hover:text-primary hover:translate-x-2 transition-all duration-200 border-b border-outline-variant/30 pb-2 flex items-center justify-between group"
+                            href="#tavern-arrives">
+                            <span>LOREM IPSUM</span>
+                            <span
+                                class="material-symbols-outlined text-[12px] opacity-0 group-hover:opacity-100">chevron_right</span>
+                        </a>
+                        <a class="text-on-surface hover:text-primary hover:translate-x-2 transition-all duration-200 border-b border-outline-variant/30 pb-2 flex items-center justify-between group"
+                            href="#lighting-engine">
+                            <span>DOLOR SIT AMET</span>
+                            <span
+                                class="material-symbols-outlined text-[12px] opacity-0 group-hover:opacity-100">chevron_right</span>
+                        </a>
+                        <a class="text-on-surface hover:text-primary hover:translate-x-2 transition-all duration-200 border-b border-outline-variant/30 pb-2 flex items-center justify-between group"
+                            href="#changelog">
+                            <span>CONSECTETUR</span>
+                            <span
+                                class="material-symbols-outlined text-[12px] opacity-0 group-hover:opacity-100">chevron_right</span>
+                        </a>
+                        <a class="text-on-surface hover:text-primary hover:translate-x-2 transition-all duration-200 border-b border-outline-variant/30 pb-2 flex items-center justify-between group"
+                            href="#rumor-system">
+                            <span>ADIPISCING ELIT</span>
+                            <span
+                                class="material-symbols-outlined text-[12px] opacity-0 group-hover:opacity-100">chevron_right</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <!-- Content Canvas -->
+        <article class="flex-grow">
+            <!-- Header Section -->
+            <header class="mb-12">
+                <h1 class="font-headline font-black text-5xl md:text-7xl text-on-surface leading-[0.9] mb-8 uppercase tracking-tighter"
+                    id="tavern-arrives">
+                    Lorem Ipsum: <span class="text-primary italic">Dolor Sit Amet!</span>
+                </h1>
+                <div
+                    class="relative w-full aspect-video bg-surface-container-highest border-b-8 border-primary-container overflow-hidden block-shadow">
+                    <img class="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-500"
+                        data-alt="Interior of a cozy medieval tavern with glowing fireplace, wooden beams, pixel art furniture, and dynamic lighting effects"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbYf3tdr3i2hVjJiDVModO-3UhxXhGxRv-JkkBx8H0fZ83sqUnmHdRuS7Zfu09NAR53UtxSCtCgcxagWofg15gtnjz_m0D1_UCTaybDiqFvP7UhcP9hiQuuY5_ixEe30UyVdVJvJk0IOIUFNSOow5v6UUFymJo9iFec2di6YCl5qzHO7w9DYp6Q5755icF_rzgKjT9T7JAU79NQZKLJ1cUC8EDut_sLnWfvhOazJst1YamgEmOvABF_Tg-ulBF_VpHV8R8qObm-AU" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
+                        <span class="font-pixel text-[12px] bg-primary text-on-primary-container px-3 py-1">LOREM_IPSUM</span>
+                    </div>
+                </div>
+            </header>
+            <!-- Body Text -->
+            <section class="space-y-8 font-body text-lg leading-relaxed text-on-surface-variant max-w-3xl">
+                <p
+                    class="first-letter:text-6xl first-letter:font-pixel first-letter:text-primary first-letter:float-left first-letter:mr-4 first-letter:leading-none">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <p id="lighting-engine">
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <!-- Patch Notes Box -->
+                <div class="bg-surface-container-low p-8 border-4 border-outline-variant my-12" id="changelog">
+                    <h3 class="font-pixel text-sm text-secondary mb-8 flex items-center gap-4">
+                        <span class="material-symbols-outlined" data-weight="fill">terminal</span>
+                        LOREM_IPSUM_v0.9.TXT
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4 items-start">
+                            <span class="material-symbols-outlined text-primary mt-1" data-icon="swords">swords</span>
+                            <div>
+                                <strong class="text-on-surface block font-headline">Lorem Ipsum Dolor</strong>
+                                <p class="text-sm" id="rumor-system">Sit amet consectetur adipiscing elit sed do eiusmod tempor.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <span class="material-symbols-outlined text-primary mt-1" data-icon="swords">swords</span>
+                            <div>
+                                <strong class="text-on-surface block font-headline">Incididunt Ut Labore</strong>
+                                <p class="text-sm" id="rumor-system">Et dolore magna aliqua ut enim ad minim veniam quis nostrud.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <span class="material-symbols-outlined text-primary mt-1" data-icon="swords">swords</span>
+                            <div>
+                                <strong class="text-on-surface block font-headline">Exercitation Ullamco Laboris</strong>
+                                <p class="text-sm" id="rumor-system">Nisi ut aliquip ex ea commodo consequat duis aute irure dolor.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <p id="rumor-system">
+                    In reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </section>
+            <!-- Interaction Box -->
+            <section class="mt-16 bg-surface-container-high p-8 border-4 border-primary block-shadow relative">
+                <!-- Dialogue Pointer -->
+                <div class="absolute -top-[12px] left-12 w-6 h-6 bg-primary rotate-45"></div>
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 border-b-4 border-outline-variant pb-6">
+                    <h4 class="font-pixel text-[12px] text-on-surface">LOREM IPSUM DOLOR?</h4>
+                    <div class="flex gap-4">
+                        <button
+                            class="bg-secondary text-on-secondary px-6 py-2 font-pixel text-[10px] active:translate-y-1 transition-all pixel-border-secondary">
+                            [ AMET ]
+                        </button>
+                        <button
+                            class="bg-primary text-on-primary-container px-6 py-2 font-pixel text-[10px] active:translate-y-1 transition-all pixel-border-primary">
+                            [ IPSUM ]
+                        </button>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-surface-container-highest border-2 border-outline flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-secondary">person</span>
+                        </div>
+                        <div class="flex-grow bg-surface-container-lowest p-4 border-2 border-outline-variant">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-pixel text-[8px] text-primary">LOREM_IPSUM</span>
+                                <span class="text-[8px] text-outline">II HORIS ANTE</span>
+                            </div>
+                            <p class="text-sm text-on-surface-variant italic font-body" id="rumor-system">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-surface-container-highest border-2 border-outline flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-[#4dc9f1]">account_circle</span>
+                        </div>
+                        <div class="flex-grow">
+                            <textarea
+                                class="w-full bg-surface-container-lowest border-2 border-outline-variant p-4 text-sm focus:outline-none focus:border-primary text-on-surface placeholder:text-outline font-body h-24 resize-none"
+                                placeholder="Scribe commentarium..."></textarea>
+                            <div class="flex justify-end mt-2">
+                                <button class="text-primary font-pixel text-[8px] hover:underline">SUBMITTE
+                                    LOREM</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+{% endblock %}
