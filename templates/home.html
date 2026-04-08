@@ -1,27 +1,187 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="dark" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>{{ t.site_name }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/tailwind.css">
     <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
-<main class="home">
-    <div class="hero">
-        <span class="logo logo-lg">{{ t.site_name }}<span class="logo-dot">.</span></span>
-        <p class="hero-desc">{{ t.site_tagline }}</p>
-        <nav class="hero-nav">
-            <a href="/posts">{{ t.nav_posts }}</a>
-        </nav>
-    </div>
-</main>
-<footer>
-    <span>{{ t.site_footer }}</span>
-</footer>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- Top Navigation Bar -->
+    <nav class="bg-[#0e0e12] dark:bg-[#0e0e12] border-b-4 border-[#1f1f24] sticky top-0 z-50">
+        <div class="flex justify-between items-center w-full px-6 py-4 max-w-[1440px] mx-auto">
+            <div class="flex items-center gap-8">
+                <span class="text-2xl font-black text-[#4dc9f1] drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] font-headline tracking-tight uppercase">{{ t.site_name }}</span>
+                <div class="hidden md:flex gap-6 font-headline font-bold tracking-tight uppercase">
+                    <a class="text-[#4dc9f1] border-b-4 border-[#4dc9f1] pb-1 transition-colors duration-100 active:translate-y-1 transition-all" href="/">Home</a>
+                    <a class="text-[#76757a] hover:text-[#4dc9f1] transition-colors duration-100 active:translate-y-1 transition-all" href="/posts">{{ t.nav_posts }}</a>
+                    <a class="text-[#76757a] hover:text-[#4dc9f1] transition-colors duration-100 active:translate-y-1 transition-all" href="#">Gallery</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="material-symbols-outlined text-[#76757a] hover:text-[#4dc9f1] transition-all" data-icon="account_circle">account_circle</button>
+            </div>
+        </div>
+    </nav>
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="relative w-full h-[819px] flex items-center justify-center overflow-hidden border-b-8 border-[#131317]">
+            <div class="absolute inset-0 bg-cover bg-center" data-alt="vibrant 16-bit pixel art of a bustling fantasy village at dawn with cozy stone houses and a distant glowing castle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRceTS63gqrusg5l2aKKTBr8HV7diZUXCerfZHca8f-VaYqGTLbebLTcLGG087FMuaGgcxSQ9iXDFwySCe-lNE7RQS9XvdK7gTkGriHilm0xpiX4DUy2qCSJwGUyzHcsyForfPjCGNYmiH1dDbDb87K72UEIdSeaYQGJBaUOKTFSd43xIbFHCIBHYwXzVgHRbL2kmOu7x1HWWzIOf20KY-TFLp98GfAitbsNwulxRwkF71GtwbW5uhjdqsn0gi7pdpDZs-iSrhAhw')"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
+            <div class="relative z-10 text-center px-4 max-w-4xl">
+                <span class="inline-block bg-secondary text-on-secondary font-pixel text-[10px] px-4 py-2 mb-6 pixel-border">VERSION 1.0.0 IPSUM</span>
+                <h1 class="text-6xl md:text-8xl font-black font-headline text-on-surface mb-8 tracking-tighter uppercase drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
+                    Aliquam At <span class="text-primary">Tellus</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-on-surface-variant font-body mb-10 max-w-2xl mx-auto font-medium">
+                    {{ t.site_tagline }}
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <a href="/posts" class="inline-block bg-primary text-on-primary font-pixel text-xs px-10 py-5 border-b-4 border-primary-container active:translate-y-1 transition-all pixel-shadow-primary uppercase">
+                        Class aptent taciti
+                    </a>
+                    <button class="bg-surface-container-high text-on-surface font-pixel text-xs px-10 py-5 border-b-4 border-outline active:translate-y-1 transition-all uppercase">
+                        Praesent eu sem
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Highlights (Asymmetric Grid) -->
+        <section class="py-24 px-6 max-w-[1440px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-surface-container-low p-8 border-4 border-[#1f1f24] relative group">
+                    <div class="w-16 h-16 bg-primary/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-4xl text-primary" data-icon="cottage">cottage</span>
+                    </div>
+                    <h3 class="font-pixel text-sm text-primary mb-4">Aliquam lacus</h3>
+                    <p class="text-on-surface-variant font-body leading-relaxed">
+                        Donec interdum magna arcu, id auctor libero tempus in. Nam at metus finibus felis porttitor ultrices quis vel orci.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-surface-container-high p-8 border-4 border-secondary relative group md:-translate-y-4">
+                    <div class="w-16 h-16 bg-secondary/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-4xl text-secondary" data-icon="swords">swords</span>
+                    </div>
+                    <h3 class="font-pixel text-sm text-secondary mb-4">Pellentes ut fringilla</h3>
+                    <p class="text-on-surface-variant font-body leading-relaxed">
+                        Praesent consequat in odio ut finibus. Duis tincidunt pulvinar risus, amet imperdiet lacus dignissim.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-surface-container-low p-8 border-4 border-[#1f1f24] relative group">
+                    <div class="w-16 h-16 bg-tertiary/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-4xl text-tertiary" data-icon="construction">construction</span>
+                    </div>
+                    <h3 class="font-pixel text-sm text-tertiary mb-4">Vestibulum</h3>
+                    <p class="text-on-surface-variant font-body leading-relaxed">
+                        Nunc maximus suscipit tortor, ut iaculis neque cursus quis. Praesent dapibus leo a est commodo dapibus.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Devlog (Editorial Layout) -->
+        <section class="bg-surface-container-lowest py-24 px-6">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="flex justify-between items-end mb-16">
+                    <div>
+                        <h2 class="font-pixel text-lg text-primary mb-4">LOREM IPSUM</h2>
+                        <p class="font-headline font-black text-4xl uppercase tracking-tight">Curabitur Non Nulla Sit Amet</p>
+                    </div>
+                    <a class="font-pixel text-[10px] text-on-surface-variant hover:text-primary transition-colors pb-2 border-b-2 border-outline-variant" href="/posts">VIDERE OMNIA</a>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Featured Post -->
+                    <div class="lg:col-span-8 group cursor-pointer">
+                        <div class="relative aspect-video mb-6 border-4 border-[#1f1f24] overflow-hidden">
+                            <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
+                            <div class="absolute top-4 left-4 bg-primary text-on-primary font-pixel text-[8px] px-3 py-1">ALIQUAM</div>
+                        </div>
+                        <div class="flex gap-4 mb-4">
+                            <span class="font-pixel text-[10px] text-secondary">DATUM LOREM</span>
+                            <span class="font-pixel text-[10px] text-outline">•</span>
+                            <span class="font-pixel text-[10px] text-outline">BY AUCTOR</span>
+                        </div>
+                        <h3 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors">Suspendisse Potenti: Nullam Ac Tortor</h3>
+                        <p class="text-on-surface-variant font-body text-lg leading-relaxed max-w-2xl">
+                            Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Proin eget tortor risus.
+                        </p>
+                    </div>
+                    <!-- Secondary Posts Stack -->
+                    <div class="lg:col-span-4 flex flex-col gap-8">
+                        <div class="group cursor-pointer flex gap-4">
+                            <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
+                                <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi61w4JOH6FqDRefElssOGK3_h-2Ha52bL0f6FH0jPgSbheeBw3rf28sDJJArFOdWJoIKpIiuureu_jDNzONd2ulYTuyr2gGd6EBCWsG2u5BQUz5WcwUhBhIEH8wUtMpQOSYAAFGY97HhFHNmvR0rmiODmhqL457-5ex8hQRmm9fsh3dmRxUHo_2RyMokicpLGoFYtY-YrbT4lb_2jYdj-2KkHzHhayOeOocrfFH4uAj_X3WunqREzVMNtbt2EFH7zpN6l09sBMog" />
+                            </div>
+                            <div>
+                                <span class="font-pixel text-[8px] text-tertiary block mb-2">DATUM IPSUM</span>
+                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">Pellentesque In Ipsum: Id Orci 2.0</h4>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer flex gap-4">
+                            <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
+                                <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsQ345D3V9W9otkX3csK0u3Qb7Crk0JHMZ-lOAtkKDDbpfSjYowOEPoEx9U8R-G-Z8h-nfi9VV7jTqA5OVMvW82Pc2BX3EztAQZpLtsPytGZ-vx7LByyiz_UujW4KbyQFEVJBhnBLr4cAwys5jk7oK7xwPRe0V-9cymKFg-7TgPNCkufG0riuW2UAXll9EHk73pM6XRYNCQA0jbMRbihrwp8vVEpKFpEBWlt8R34dAXhsae12HIYwSDqdRoG8e1UHpusUUmQlz9r8" />
+                            </div>
+                            <div>
+                                <span class="font-pixel text-[8px] text-tertiary block mb-2">DATUM DOLOR</span>
+                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">Vivamus Magna Justo &amp; Lacinia Eget</h4>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer flex gap-4">
+                            <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
+                                <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8GZauqTaQGo7xYcmNfWr4BKVIlOIKp1NbH49NTsuD7bsQXyOPctfw1hPJ5JE9TH1spoVMDXic6nrdyNIRksmyNxvSw2ghwtwCtAlKdz3IDthCcIWHG05hxO_ikoMyxETE7yBEKMJICO0p9WR0G8oR-1TCJOUhBqnC1bvWIZMSeKPqQ1ckWTj23L-HS-_Dv_4pt-x_lhvwk-7E7xmCM3ykQSv9xq0CuHnIAOhH_y2nTOKeiZlieuMRO3EVovs60b10umv04dapUk" />
+                            </div>
+                            <div>
+                                <span class="font-pixel text-[8px] text-tertiary block mb-2">DATUM AMET</span>
+                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">Vestibulum Ante Ipsum: Primis In Faucibus</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter / CTA -->
+        <section class="py-24 px-6">
+            <div class="max-w-[1000px] mx-auto bg-surface-container-high border-4 border-primary p-12 text-center relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+                <div class="relative z-10">
+                    <h2 class="font-pixel text-xl text-primary mb-6 uppercase tracking-widest">Aliquam Lacinia Nisi</h2>
+                    <p class="text-xl text-on-surface-variant font-body mb-10 max-w-xl mx-auto">
+                        Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
+                    </p>
+                    <div class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+                        <input class="bg-surface-container-lowest border-2 border-outline text-on-surface font-pixel text-[10px] px-6 py-4 flex-grow focus:border-primary focus:ring-0 outline-none uppercase" placeholder="LOREM@IPSUM.COM" type="email" />
+                        <button class="bg-primary text-on-primary font-pixel text-xs px-8 py-4 border-b-4 border-primary-container active:translate-y-1 transition-all uppercase">SUSCIPIT</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0e0e12] dark:bg-[#0e0e12] border-t-4 border-[#1f1f24] w-full py-12 px-8 flex flex-col items-center gap-6">
+        <div class="flex flex-col items-center gap-8 w-full max-w-[1440px]">
+            <span class="text-xl font-black text-[#4dc9f1] font-headline uppercase">{{ t.site_name }}</span>
+            <div class="flex flex-wrap justify-center gap-10 font-['Manrope'] text-sm tracking-wide">
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all hover:tracking-widest duration-300" href="#">Lorem</a>
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all hover:tracking-widest duration-300" href="#">Ipsum</a>
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all hover:tracking-widest duration-300" href="#">Dolor</a>
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all hover:tracking-widest duration-300" href="#">Sit Amet</a>
+            </div>
+            <div class="w-full h-1 bg-[#131317]"></div>
+            <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+                <p class="font-['Manrope'] text-sm text-[#76757a]">{{ t.site_footer }}</p>
+                <div class="flex flex-col gap-4 items-center md:items-end text-right">
+                    <p class="font-['Manrope'] text-sm text-[#76757a]">Backend by 🐺 <a href="https://github.com/marceli99" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-200">Marceli99</a></p>
+                    <p class="font-['Manrope'] text-sm text-[#76757a]">Frontend by 🦒 <a href="https://github.com/Kanewersa" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-200">Kanewersa</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
