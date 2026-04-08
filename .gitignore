@@ -1,2 +1,4 @@
 /target
+/node_modules
+static/tailwind.css
 .env
