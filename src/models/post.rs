@@ -8,49 +8,46 @@ pub struct Post {
     pub content: String,
     pub content_html: String,
     pub preview: String,
+    pub date: String,
 }
 
 impl Post {
     pub async fn all(db: &Client) -> Result<Vec<Self>, tokio_postgres::Error> {
         let rows = db
             .query(
-                "SELECT id, title, content FROM posts ORDER BY id DESC LIMIT 20",
+                "SELECT id, title, content, to_char(created_at, 'MON DD, YYYY') AS date \
+                 FROM posts ORDER BY created_at DESC, id DESC LIMIT 20",
                 &[],
             )
             .await?;
 
-        let posts = rows
-            .into_iter()
-            .map(|row| {
-                let content: String = row.get("content");
-                Self {
-                    id: row.get("id"),
-                    title: row.get("title"),
-                    content_html: markdown_to_html(&content),
-                    preview: markdown_to_plain_preview(&content, 3),
-                    content,
-                }
-            })
-            .collect();
+        let posts = rows.into_iter().map(Self::from_row).collect();
 
         Ok(posts)
     }
 
     pub async fn find(db: &Client, id: i32) -> Result<Option<Self>, tokio_postgres::Error> {
         let rows = db
-            .query("SELECT id, title, content FROM posts WHERE id = $1", &[&id])
+            .query(
+                "SELECT id, title, content, to_char(created_at, 'MON DD, YYYY') AS date \
+                 FROM posts WHERE id = $1",
+                &[&id],
+            )
             .await?;
 
-        Ok(rows.into_iter().next().map(|row| {
-            let content: String = row.get("content");
-            Self {
-                id: row.get("id"),
-                title: row.get("title"),
-                content_html: markdown_to_html(&content),
-                preview: markdown_to_plain_preview(&content, 3),
-                content,
-            }
-        }))
+        Ok(rows.into_iter().next().map(Self::from_row))
+    }
+
+    fn from_row(row: tokio_postgres::Row) -> Self {
+        let content: String = row.get("content");
+        Self {
+            id: row.get("id"),
+            title: row.get("title"),
+            content_html: markdown_to_html(&content),
+            preview: markdown_to_plain_preview(&content, 3),
+            date: row.get("date"),
+            content,
+        }
     }
 
     pub async fn create(

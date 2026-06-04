@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}{{ t.site_name }}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/tailwind.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/bundle.js" defer></script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- Top Navigation Bar -->
+    <nav id="main-nav" class="bg-[#0e0e12] dark:bg-[#0e0e12] border-b-4 border-[#1f1f24] sticky top-0 z-50">
+        <div class="flex justify-between items-center w-full px-6 py-4 max-w-[1440px] mx-auto">
+            <div class="flex items-center gap-8">
+                <span class="text-2xl font-black text-[#4dc9f1] drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] font-headline tracking-tight uppercase">{{ t.site_name }}</span>
+                <div class="hidden md:flex gap-6 font-headline font-bold tracking-tight uppercase">
+                    <a class="{% block nav_home_class %}text-[#76757a] hover:text-[#4dc9f1]{% endblock %} transition-colors duration-100 transition-all" href="/">Home</a>
+                    <a class="{% block nav_posts_class %}text-[#76757a] hover:text-[#4dc9f1]{% endblock %} transition-colors duration-100 transition-all" href="/posts">{{ t.nav_posts }}</a>
+                    <a class="{% block nav_gallery_class %}text-[#76757a] hover:text-[#4dc9f1]{% endblock %} transition-colors duration-100 transition-all" href="#">Gallery</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="material-symbols-outlined text-[#76757a] hover:text-[#4dc9f1] transition-all" data-icon="account_circle">account_circle</button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="swup" class="transition-fade">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0e0e12] dark:bg-[#0e0e12] border-t-4 border-[#1f1f24] w-full py-12 px-8 flex flex-col items-center gap-6">
+        <div class="flex flex-col items-center gap-8 w-full max-w-[1440px]">
+            <span class="text-xl font-black text-[#4dc9f1] font-headline uppercase">{{ t.site_name }}</span>
+            <div class="flex flex-wrap justify-center gap-10 font-['Manrope'] text-sm tracking-wide">
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all duration-300" href="#">Lorem</a>
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all duration-300" href="#">Ipsum</a>
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all duration-300" href="#">Dolor</a>
+                <a class="text-[#76757a] hover:text-[#ff6a9f] transition-all duration-300" href="#">Sit Amet</a>
+            </div>
+            <div class="w-full h-1 bg-[#131317]"></div>
+            <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+                <p class="font-['Manrope'] text-sm text-[#76757a]">{{ t.site_footer }}</p>
+                <div class="flex flex-col gap-4 items-center md:items-end text-right">
+                    <p class="font-['Manrope'] text-sm text-[#76757a]">Backend by 🐺 <a href="https://github.com/marceli99" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-200">Marceli99</a></p>
+                    <p class="font-['Manrope'] text-sm text-[#76757a]">Frontend by 🦒 <a href="https://github.com/Kanewersa" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-200">Kanewersa</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

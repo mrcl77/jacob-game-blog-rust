@@ -1,39 +1,69 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ t.nav_posts }} — {{ t.site_name }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/tailwind.css">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-<header>
-    <div class="header-inner">
-        <span class="logo"><a href="/">{{ t.site_name }}<span class="logo-dot">.</span></a></span>
-        <nav class="header-nav">
-            <a href="/posts">{{ t.nav_posts }}</a>
-        </nav>
-    </div>
-</header>
-<main>
-    {% if has_posts %}
-    {% for post in posts %}
-    <article>
-        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
-        <p class="post-preview">{{ post.preview }}</p>
-    </article>
-    <hr>
-    {% endfor %}
-    {% else %}
-    <p class="empty">{{ t.no_posts }}</p>
-    {% endif %}
-</main>
-<footer>
-    <span>{{ t.site_footer }}</span>
-</footer>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ t.nav_posts }} — {{ t.site_name }}{% endblock %}
+
+{% block nav_posts_class %}text-[#4dc9f1] border-b-4 border-[#4dc9f1] pb-1{% endblock %}
+
+{% block content %}
+    <main class="min-h-screen py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-16">
+                <h1 class="font-pixel text-xl text-primary mb-4">{{ t.posts_index_eyebrow }}</h1>
+                <p class="font-headline font-black text-5xl uppercase tracking-tighter">{{ t.posts_index_heading }}</p>
+                <div class="w-24 h-2 bg-secondary mt-6"></div>
+            </header>
+            <div class="flex flex-col gap-12">
+                {% if has_posts %}
+                    {% for post in posts %}
+                    <a href="/posts/{{ post.id }}" class="group cursor-pointer flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
+                        <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
+                            <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <div class="flex gap-4 mb-3">
+                                <span class="font-pixel text-[10px] text-secondary">{{ post.date }}</span>
+                            </div>
+                            <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors leading-none">
+                                {{ post.title }}</h2>
+                            <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
+                                {{ post.preview }}
+                            </p>
+                            <span class="font-pixel text-[10px] text-primary flex items-center gap-2 group-hover:translate-x-2 transition-transform">{{ t.posts_index_read_more }}
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <!-- Placeholder Post (no posts yet) -->
+                    <article class="group flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
+                        <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
+                            <img class="w-full h-full object-cover grayscale"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <div class="flex gap-4 mb-3">
+                                <span class="font-pixel text-[10px] text-secondary">JAN 01, 2024</span>
+                            </div>
+                            <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 leading-none">
+                                Lorem Ipsum Dolor: Sit Amet Consectetur</h2>
+                            <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                            </p>
+                        </div>
+                    </article>
+                {% endif %}
+            </div>
+            {% if has_posts %}
+            <!-- Show More Button -->
+            <div class="mt-20 flex justify-center">
+                <button class="w-full bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-pixel text-sm px-12 py-8 border-4 border-outline hover:border-primary active:translate-y-2 transition-all uppercase pixel-shadow-primary flex items-center justify-center gap-4">
+                    <span class="material-symbols-outlined">expand_more</span>
+                    {{ t.posts_index_load_more }}
+                    <span class="material-symbols-outlined">expand_more</span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

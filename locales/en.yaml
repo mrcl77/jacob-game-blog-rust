@@ -1,0 +1,81 @@
+# --- Public site chrome ---
+site_name: "blog"
+site_tagline: "build, craft, thrive"
+site_footer: "powered by axum + rust"
+nav_posts: "Posts"
+back_all_posts: "All posts"
+no_posts: "No posts yet."
+
+# --- Home: hero ---
+home_hero_badge: "VERSION 0.0.1 ALPHA"
+home_hero_title: "The Unnamed"
+home_hero_title_accent: "Project"
+home_hero_cta_blog: "Read blog posts"
+home_hero_cta_progress: "Check progress"
+
+# --- Home: feature highlights ---
+home_feature1_title: "Your fantasy home"
+home_feature1_body: "Build a mesmerising village, tailored to your imagination. Let your creativity run wild as shape the world around you."
+home_feature2_title: "Strength in numbers"
+home_feature2_body: "Invite friends and collaborate on your village together. Share resources, exchange ideas, and create a thriving town."
+home_feature3_title: "Craft and Expand"
+home_feature3_body: "Gather resources and craft essential items to expand your village."
+
+# --- Home: recent devlog ---.
+home_devlog_eyebrow: "BLOG POSTS"
+home_devlog_heading: "Newest Devlog Posts"
+home_devlog_see_all: "Check all posts"
+home_featured_tag: "ALIQUAM"
+home_featured_date: "DATUM LOREM"
+home_featured_author: "BY AUCTOR"
+home_featured_title: "Suspendisse Potenti: Nullam Ac Tortor"
+home_featured_excerpt: "Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Proin eget tortor risus."
+home_post2_date: "DATUM IPSUM"
+home_post2_title: "Pellentesque In Ipsum: Id Orci 2.0"
+home_post3_date: "DATUM DOLOR"
+home_post3_title: "Vivamus Magna Justo & Lacinia Eget"
+home_post4_date: "DATUM AMET"
+home_post4_title: "Vestibulum Ante Ipsum: Primis In Faucibus"
+
+# --- Home: newsletter ---
+home_newsletter_heading: "Subscribe For Updates"
+home_newsletter_body: "Get the latest news and updates about the project delivered straight to your inbox."
+home_newsletter_placeholder: "your_email@domain.com"
+home_newsletter_button: "Subscribe"
+
+# --- Post page chrome ---
+post_toc_label: "LOG INDEX"
+post_comments_heading: "LOREM IPSUM DOLOR?"
+post_comments_action_secondary: "[ AMET ]"
+post_comments_action_primary: "[ IPSUM ]"
+post_comment_placeholder: "Scribe commentarium..."
+post_comment_submit: "SUBMITTE LOREM"
+
+# --- Posts index (public) ---
+posts_index_eyebrow: "LOREM_IPSUM"
+posts_index_heading: "Dolor Sit Amet Consectetur"
+posts_index_read_more: "READ_MORE"
+posts_index_load_more: "Load More Posts"
+
+# --- Posts list (admin) ---
+posts_title: "Posts"
+posts_new: "New Post"
+posts_col_title: "Title"
+posts_col_actions: "Actions"
+posts_edit: "Edit"
+posts_delete: "Delete"
+posts_delete_confirm: "Delete this post?"
+posts_empty: "No posts yet"
+
+# --- Post form (admin) ---
+form_title: "Title"
+form_content: "Content (Markdown)"
+form_preview: "Preview"
+form_preview_placeholder: "Markdown preview will appear here..."
+form_cancel: "Cancel"
+form_save: "Save"
+form_save_changes: "Save Changes"
+
+# --- Page titles (admin) ---
+page_new_post: "New Post"
+page_edit_post: "Edit Post"

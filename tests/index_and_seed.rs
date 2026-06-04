@@ -12,8 +12,10 @@ async fn ensure_schema(db: &Client) -> Result<(), tokio_postgres::Error> {
         "CREATE TABLE IF NOT EXISTS posts (
             id SERIAL PRIMARY KEY,
             title TEXT NOT NULL,
-            content TEXT NOT NULL DEFAULT ''
-        );",
+            content TEXT NOT NULL DEFAULT '',
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        );
+        ALTER TABLE posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT now();",
     )
     .await
 }
