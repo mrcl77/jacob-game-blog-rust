@@ -76,52 +76,57 @@
                     <a class="font-pixel text-[10px] text-on-surface-variant hover:text-primary transition-colors pb-2 border-b-2 border-outline-variant" href="/posts">{{ t.home_devlog_see_all }}</a>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <!-- Featured Post -->
-                    <div class="lg:col-span-8 group cursor-pointer">
-                        <div class="relative aspect-video mb-6 border-4 border-[#1f1f24] overflow-hidden">
-                            <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
-                            <div class="absolute top-4 left-4 bg-primary text-on-primary font-pixel text-[8px] px-3 py-1">{{ t.home_featured_tag }}</div>
+                    {% if has_posts %}
+                        {% for post in posts %}
+                            {% if loop.first %}
+                                <!-- Featured Post -->
+                                <a class="lg:col-span-8 group cursor-pointer block" href="/posts/{{ post.id }}">
+                                    <div class="relative aspect-video mb-6 border-4 border-[#1f1f24] overflow-hidden">
+                                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
+                                        <div class="absolute top-4 left-4 bg-primary text-on-primary font-pixel text-[8px] px-3 py-1">{{ t.home_featured_tag }}</div>
+                                    </div>
+                                    <div class="flex gap-4 mb-4">
+                                        <span class="font-pixel text-[10px] text-secondary">{{ post.date }}</span>
+                                    </div>
+                                    <h3 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors">{{ post.title }}</h3>
+                                    <p class="text-on-surface-variant font-body text-lg leading-relaxed max-w-2xl">
+                                        {{ post.preview }}
+                                    </p>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                        <!-- Secondary Posts Stack -->
+                        <div class="lg:col-span-4 flex flex-col gap-8">
+                            {% for post in posts %}
+                                {% if !loop.first %}
+                                    <a class="group cursor-pointer flex gap-4" href="/posts/{{ post.id }}">
+                                        <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
+                                            <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi61w4JOH6FqDRefElssOGK3_h-2Ha52bL0f6FH0jPgSbheeBw3rf28sDJJArFOdWJoIKpIiuureu_jDNzONd2ulYTuyr2gGd6EBCWsG2u5BQUz5WcwUhBhIEH8wUtMpQOSYAAFGY97HhFHNmvR0rmiODmhqL457-5ex8hQRmm9fsh3dmRxUHo_2RyMokicpLGoFYtY-YrbT4lb_2jYdj-2KkHzHhayOeOocrfFH4uAj_X3WunqREzVMNtbt2EFH7zpN6l09sBMog" />
+                                        </div>
+                                        <div>
+                                            <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ post.date }}</span>
+                                            <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ post.title }}</h4>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                        <div class="flex gap-4 mb-4">
-                            <span class="font-pixel text-[10px] text-secondary">{{ t.home_featured_date }}</span>
-                            <span class="font-pixel text-[10px] text-outline">•</span>
-                            <span class="font-pixel text-[10px] text-outline">{{ t.home_featured_author }}</span>
+                    {% else %}
+                        <!-- Placeholder Post (no posts yet) -->
+                        <div class="lg:col-span-8 group">
+                            <div class="relative aspect-video mb-6 border-4 border-[#1f1f24] overflow-hidden">
+                                <img class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
+                                <div class="absolute top-4 left-4 bg-primary text-on-primary font-pixel text-[8px] px-3 py-1">{{ t.home_featured_tag }}</div>
+                            </div>
+                            <div class="flex gap-4 mb-4">
+                                <span class="font-pixel text-[10px] text-secondary">{{ t.home_featured_date }}</span>
+                            </div>
+                            <h3 class="font-headline font-extrabold text-3xl uppercase mb-4">{{ t.home_featured_title }}</h3>
+                            <p class="text-on-surface-variant font-body text-lg leading-relaxed max-w-2xl">
+                                {{ t.home_featured_excerpt }}
+                            </p>
                         </div>
-                        <h3 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors">{{ t.home_featured_title }}</h3>
-                        <p class="text-on-surface-variant font-body text-lg leading-relaxed max-w-2xl">
-                            {{ t.home_featured_excerpt }}
-                        </p>
-                    </div>
-                    <!-- Secondary Posts Stack -->
-                    <div class="lg:col-span-4 flex flex-col gap-8">
-                        <div class="group cursor-pointer flex gap-4">
-                            <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
-                                <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi61w4JOH6FqDRefElssOGK3_h-2Ha52bL0f6FH0jPgSbheeBw3rf28sDJJArFOdWJoIKpIiuureu_jDNzONd2ulYTuyr2gGd6EBCWsG2u5BQUz5WcwUhBhIEH8wUtMpQOSYAAFGY97HhFHNmvR0rmiODmhqL457-5ex8hQRmm9fsh3dmRxUHo_2RyMokicpLGoFYtY-YrbT4lb_2jYdj-2KkHzHhayOeOocrfFH4uAj_X3WunqREzVMNtbt2EFH7zpN6l09sBMog" />
-                            </div>
-                            <div>
-                                <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ t.home_post2_date }}</span>
-                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ t.home_post2_title }}</h4>
-                            </div>
-                        </div>
-                        <div class="group cursor-pointer flex gap-4">
-                            <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
-                                <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsQ345D3V9W9otkX3csK0u3Qb7Crk0JHMZ-lOAtkKDDbpfSjYowOEPoEx9U8R-G-Z8h-nfi9VV7jTqA5OVMvW82Pc2BX3EztAQZpLtsPytGZ-vx7LByyiz_UujW4KbyQFEVJBhnBLr4cAwys5jk7oK7xwPRe0V-9cymKFg-7TgPNCkufG0riuW2UAXll9EHk73pM6XRYNCQA0jbMRbihrwp8vVEpKFpEBWlt8R34dAXhsae12HIYwSDqdRoG8e1UHpusUUmQlz9r8" />
-                            </div>
-                            <div>
-                                <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ t.home_post3_date }}</span>
-                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ t.home_post3_title }}</h4>
-                            </div>
-                        </div>
-                        <div class="group cursor-pointer flex gap-4">
-                            <div class="w-24 h-24 shrink-0 bg-surface-container-high border-2 border-outline-variant overflow-hidden">
-                                <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8GZauqTaQGo7xYcmNfWr4BKVIlOIKp1NbH49NTsuD7bsQXyOPctfw1hPJ5JE9TH1spoVMDXic6nrdyNIRksmyNxvSw2ghwtwCtAlKdz3IDthCcIWHG05hxO_ikoMyxETE7yBEKMJICO0p9WR0G8oR-1TCJOUhBqnC1bvWIZMSeKPqQ1ckWTj23L-HS-_Dv_4pt-x_lhvwk-7E7xmCM3ykQSv9xq0CuHnIAOhH_y2nTOKeiZlieuMRO3EVovs60b10umv04dapUk" />
-                            </div>
-                            <div>
-                                <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ t.home_post4_date }}</span>
-                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ t.home_post4_title }}</h4>
-                            </div>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>

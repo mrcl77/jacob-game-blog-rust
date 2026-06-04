@@ -28,6 +28,18 @@ pub async fn build_state(database_url: &str) -> Result<AppState, tokio_postgres:
         }
     });
 
+    db_client
+        .batch_execute(
+            "CREATE TABLE IF NOT EXISTS posts (
+                id SERIAL PRIMARY KEY,
+                title TEXT NOT NULL,
+                content TEXT NOT NULL DEFAULT '',
+                created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+            );
+            ALTER TABLE posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT now();",
+        )
+        .await?;
+
     Ok(AppState {
         db: Arc::new(db_client),
     })

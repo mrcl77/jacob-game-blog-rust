@@ -13,95 +13,48 @@
                 <div class="w-24 h-2 bg-secondary mt-6"></div>
             </header>
             <div class="flex flex-col gap-12">
-                <!-- Blog Post 1 -->
-                <article class="group cursor-pointer flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
-                    <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
-                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
-                            data-alt="cinematic widescreen pixel art of a dark dungeon entrance with glowing magical runes and purple mist"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <div class="flex gap-4 mb-3">
-                            <span class="font-pixel text-[10px] text-secondary">JAN 01, 2024</span>
-                            <span class="font-pixel text-[10px] text-outline">/</span>
-                            <span class="font-pixel text-[10px] text-outline">AUCTOR</span>
+                {% if has_posts %}
+                    {% for post in posts %}
+                    <a href="/posts/{{ post.id }}" class="group cursor-pointer flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
+                        <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
+                            <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
                         </div>
-                        <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors leading-none">
-                            Lorem Ipsum Dolor: Sit Amet Consectetur</h2>
-                        <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <span class="font-pixel text-[10px] text-primary flex items-center gap-2 group-hover:translate-x-2 transition-transform">{{ t.posts_index_read_more }}
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </article>
-                <!-- Blog Post 2 -->
-                <article class="group cursor-pointer flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
-                    <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
-                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
-                            data-alt="close-up pixel art icon of a magical blacksmith hammer hitting an anvil with blue sparks"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi61w4JOH6FqDRefElssOGK3_h-2Ha52bL0f6FH0jPgSbheeBw3rf28sDJJArFOdWJoIKpIiuureu_jDNzONd2ulYTuyr2gGd6EBCWsG2u5BQUz5WcwUhBhIEH8wUtMpQOSYAAFGY97HhFHNmvR0rmiODmhqL457-5ex8hQRmm9fsh3dmRxUHo_2RyMokicpLGoFYtY-YrbT4lb_2jYdj-2KkHzHhayOeOocrfFH4uAj_X3WunqREzVMNtbt2EFH7zpN6l09sBMog" />
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <div class="flex gap-4 mb-3">
-                            <span class="font-pixel text-[10px] text-secondary">FEB 15, 2024</span>
-                            <span class="font-pixel text-[10px] text-outline">/</span>
-                            <span class="font-pixel text-[10px] text-outline">ALIQUAM</span>
+                        <div class="flex flex-col justify-center">
+                            <div class="flex gap-4 mb-3">
+                                <span class="font-pixel text-[10px] text-secondary">{{ post.date }}</span>
+                            </div>
+                            <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors leading-none">
+                                {{ post.title }}</h2>
+                            <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
+                                {{ post.preview }}
+                            </p>
+                            <span class="font-pixel text-[10px] text-primary flex items-center gap-2 group-hover:translate-x-2 transition-transform">{{ t.posts_index_read_more }}
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
                         </div>
-                        <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors leading-none">
-                            Duis Aute Irure: Dolor in Reprehenderit</h2>
-                        <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
-                            Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                        </p>
-                        <span class="font-pixel text-[10px] text-primary flex items-center gap-2 group-hover:translate-x-2 transition-transform">{{ t.posts_index_read_more }}
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </article>
-                <!-- Blog Post 3 -->
-                <article class="group cursor-pointer flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
-                    <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
-                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
-                            data-alt="pixel art scene of various fantasy characters gathered around a flickering campfire in a dark forest"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsQ345D3V9W9otkX3csK0u3Qb7Crk0JHMZ-lOAtkKDDbpfSjYowOEPoEx9U8R-G-Z8h-nfi9VV7jTqA5OVMvW82Pc2BX3EztAQZpLtsPytGZ-vx7LByyiz_UujW4KbyQFEVJBhnBLr4cAwys5jk7oK7xwPRe0V-9cymKFg-7TgPNCkufG0riuW2UAXll9EHk73pM6XRYNCQA0jbMRbihrwp8vVEpKFpEBWlt8R34dAXhsae12HIYwSDqdRoG8e1UHpusUUmQlz9r8" />
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <div class="flex gap-4 mb-3">
-                            <span class="font-pixel text-[10px] text-secondary">MAR 30, 2024</span>
-                            <span class="font-pixel text-[10px] text-outline">/</span>
-                            <span class="font-pixel text-[10px] text-outline">VESTIBULUM</span>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <!-- Placeholder Post (no posts yet) -->
+                    <article class="group flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
+                        <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
+                            <img class="w-full h-full object-cover grayscale"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
                         </div>
-                        <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors leading-none">
-                            Excepteur Sint Occaecat: Cupidatat Non Proident</h2>
-                        <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
-                            Sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio.
-                        </p>
-                        <span class="font-pixel text-[10px] text-primary flex items-center gap-2 group-hover:translate-x-2 transition-transform">{{ t.posts_index_read_more }}
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </article>
-                <!-- Blog Post 4 -->
-                <article class="group cursor-pointer flex flex-col md:flex-row gap-8 pb-12 border-b-4 border-surface-container-high last:border-0">
-                    <div class="md:w-1/3 aspect-video md:aspect-square bg-surface-container-high border-4 border-[#1f1f24] overflow-hidden shrink-0">
-                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
-                            data-alt="pixel art of an open grimoire book with animated glowing pages and floating ink droplets"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8GZauqTaQGo7xYcmNfWr4BKVIlOIKp1NbH49NTsuD7bsQXyOPctfw1hPJ5JE9TH1spoVMDXic6nrdyNIRksmyNxvSw2ghwtwCtAlKdz3IDthCcIWHG05hxO_ikoMyxETE7yBEKMJICO0p9WR0G8oR-1TCJOUhBqnC1bvWIZMSeKPqQ1ckWTj23L-HS-_Dv_4pt-x_lhvwk-7E7xmCM3ykQSv9xq0CuHnIAOhH_y2nTOKeiZlieuMRO3EVovs60b10umv04dapUk" />
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <div class="flex gap-4 mb-3">
-                            <span class="font-pixel text-[10px] text-secondary">APR 12, 2024</span>
-                            <span class="font-pixel text-[10px] text-outline">/</span>
-                            <span class="font-pixel text-[10px] text-outline">PELLENTESQUE</span>
+                        <div class="flex flex-col justify-center">
+                            <div class="flex gap-4 mb-3">
+                                <span class="font-pixel text-[10px] text-secondary">JAN 01, 2024</span>
+                            </div>
+                            <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 leading-none">
+                                Lorem Ipsum Dolor: Sit Amet Consectetur</h2>
+                            <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                            </p>
                         </div>
-                        <h2 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors leading-none">
-                            Phasellus Volutpat: Metus Eget Egestas Mollit</h2>
-                        <p class="text-on-surface-variant font-body text-lg leading-relaxed mb-4">
-                            Nullam id dolor id nibh ultricies vehicula ut id elit. Donec ullamcorper nulla non metus auctor fringilla. Cras justo odio, dapibus ac facilisis.
-                        </p>
-                        <span class="font-pixel text-[10px] text-primary flex items-center gap-2 group-hover:translate-x-2 transition-transform">{{ t.posts_index_read_more }}
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </article>
+                    </article>
+                {% endif %}
             </div>
+            {% if has_posts %}
             <!-- Show More Button -->
             <div class="mt-20 flex justify-center">
                 <button class="w-full bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-pixel text-sm px-12 py-8 border-4 border-outline hover:border-primary active:translate-y-2 transition-all uppercase pixel-shadow-primary flex items-center justify-center gap-4">
@@ -110,6 +63,7 @@
                     <span class="material-symbols-outlined">expand_more</span>
                 </button>
             </div>
+            {% endif %}
         </div>
     </main>
 {% endblock %}
