@@ -10,10 +10,10 @@ use axum::{
 
 #[derive(Template)]
 #[template(path = "index.html")]
-struct IndexTemplate {
+struct IndexTemplate<'a> {
     posts: Vec<Post>,
     has_posts: bool,
-    t: &'static Translations,
+    t: &'a Translations,
 }
 
 struct HtmlTemplate<T>(T);
@@ -37,7 +37,7 @@ pub async fn index(State(state): State<AppState>) -> Response {
     match Post::all(&state.db).await {
         Ok(posts) => {
             let has_posts = !posts.is_empty();
-            HtmlTemplate(IndexTemplate { posts, has_posts, t: &i18n::EN }).into_response()
+            HtmlTemplate(IndexTemplate { posts, has_posts, t: &i18n::en() }).into_response()
         }
         Err(err) => {
             tracing::error!("Database query error: {}", err);
@@ -48,14 +48,14 @@ pub async fn index(State(state): State<AppState>) -> Response {
 
 #[derive(Template)]
 #[template(path = "post.html")]
-struct ShowTemplate {
+struct ShowTemplate<'a> {
     post: Post,
-    t: &'static Translations,
+    t: &'a Translations,
 }
 
 pub async fn show(State(state): State<AppState>, Path(id): Path<i32>) -> Response {
     match Post::find(&state.db, id).await {
-        Ok(Some(post)) => HtmlTemplate(ShowTemplate { post, t: &i18n::EN }).into_response(),
+        Ok(Some(post)) => HtmlTemplate(ShowTemplate { post, t: &i18n::en() }).into_response(),
         Ok(None) => StatusCode::NOT_FOUND.into_response(),
         Err(err) => {
             tracing::error!("Database query error: {}", err);

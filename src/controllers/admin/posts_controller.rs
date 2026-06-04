@@ -12,22 +12,22 @@ use serde::Deserialize;
 
 #[derive(Template)]
 #[template(path = "admin/posts/index.html")]
-struct IndexTemplate {
+struct IndexTemplate<'a> {
     posts: Vec<Post>,
-    t: &'static Translations,
+    t: &'a Translations,
 }
 
 #[derive(Template)]
 #[template(path = "admin/posts/new.html")]
-struct NewTemplate {
-    t: &'static Translations,
+struct NewTemplate<'a> {
+    t: &'a Translations,
 }
 
 #[derive(Template)]
 #[template(path = "admin/posts/edit.html")]
-struct EditTemplate {
+struct EditTemplate<'a> {
     post: Post,
-    t: &'static Translations,
+    t: &'a Translations,
 }
 
 struct HtmlTemplate<T>(T);
@@ -57,7 +57,7 @@ pub async fn index(State(state): State<AppState>) -> Response {
     match Post::all(&state.db).await {
         Ok(posts) => HtmlTemplate(IndexTemplate {
             posts,
-            t: &i18n::EN,
+            t: &i18n::en(),
         })
         .into_response(),
         Err(err) => {
@@ -71,8 +71,8 @@ pub async fn admin_root() -> impl IntoResponse {
     Redirect::to("/admin/posts")
 }
 
-pub async fn new() -> impl IntoResponse {
-    HtmlTemplate(NewTemplate { t: &i18n::EN })
+pub async fn new() -> Response {
+    HtmlTemplate(NewTemplate { t: &i18n::en() }).into_response()
 }
 
 pub async fn create(State(state): State<AppState>, Form(form): Form<PostForm>) -> Response {
@@ -89,7 +89,7 @@ pub async fn edit(State(state): State<AppState>, Path(id): Path<i32>) -> Respons
     match Post::find(&state.db, id).await {
         Ok(Some(post)) => HtmlTemplate(EditTemplate {
             post,
-            t: &i18n::EN,
+            t: &i18n::en(),
         })
         .into_response(),
         Ok(None) => StatusCode::NOT_FOUND.into_response(),

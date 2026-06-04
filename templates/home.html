@@ -11,19 +11,19 @@
             <div class="absolute inset-0 bg-cover bg-center" data-alt="vibrant 16-bit pixel art of a bustling fantasy village at dawn with cozy stone houses and a distant glowing castle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRceTS63gqrusg5l2aKKTBr8HV7diZUXCerfZHca8f-VaYqGTLbebLTcLGG087FMuaGgcxSQ9iXDFwySCe-lNE7RQS9XvdK7gTkGriHilm0xpiX4DUy2qCSJwGUyzHcsyForfPjCGNYmiH1dDbDb87K72UEIdSeaYQGJBaUOKTFSd43xIbFHCIBHYwXzVgHRbL2kmOu7x1HWWzIOf20KY-TFLp98GfAitbsNwulxRwkF71GtwbW5uhjdqsn0gi7pdpDZs-iSrhAhw')"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
             <div class="relative z-10 text-center px-4 max-w-4xl">
-                <span class="inline-block bg-secondary text-on-secondary font-pixel text-[10px] px-4 py-2 mb-6 pixel-border">VERSION 0.6.4 ALPHA</span>
+                <span class="inline-block bg-secondary text-on-secondary font-pixel text-[10px] px-4 py-2 mb-6 pixel-border">{{ t.home_hero_badge }}</span>
                 <h1 class="text-6xl md:text-8xl font-black font-headline text-on-surface mb-8 tracking-tighter uppercase drop-shadow-[8px_8px_0px_rgba(0,0,0,1)]">
-                    Aliquam At <span class="text-primary">Tellus</span>
+                    {{ t.home_hero_title }} <span class="text-primary">{{ t.home_hero_title_accent }}</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-on-surface-variant font-body mb-10 max-w-2xl mx-auto font-medium">
                     {{ t.site_tagline }}
                 </p>
                 <div class="flex flex-col md:flex-row gap-6 justify-center">
                     <a href="/posts" class="inline-block bg-primary text-on-primary font-pixel text-xs px-10 py-5 border-b-4 border-primary-container active:translate-y-1 transition-all pixel-shadow-primary uppercase">
-                        Class aptent taciti
+                        {{ t.home_hero_cta_blog }}
                     </a>
                     <button class="bg-surface-container-high text-on-surface font-pixel text-xs px-10 py-5 border-b-4 border-outline active:translate-y-1 transition-all uppercase">
-                        Praesent eu sem
+                        {{ t.home_hero_cta_progress }}
                     </button>
                 </div>
             </div>
@@ -37,19 +37,19 @@
                     <div class="w-16 h-16 bg-primary/10 flex items-center justify-center mb-6">
                         <span class="material-symbols-outlined text-4xl text-primary" data-icon="cottage">cottage</span>
                     </div>
-                    <h3 class="font-pixel text-sm text-primary mb-4">Aliquam lacus</h3>
+                    <h3 class="font-pixel text-sm text-primary mb-4">{{ t.home_feature1_title }}</h3>
                     <p class="text-on-surface-variant font-body leading-relaxed">
-                        Donec interdum magna arcu, id auctor libero tempus in. Nam at metus finibus felis porttitor ultrices quis vel orci.
+                        {{ t.home_feature1_body }}
                     </p>
                 </div>
                 <!-- Feature 2 -->
                 <div class="bg-surface-container-high p-8 border-4 border-secondary relative group md:-translate-y-4">
                     <div class="w-16 h-16 bg-secondary/10 flex items-center justify-center mb-6">
-                        <span class="material-symbols-outlined text-4xl text-secondary" data-icon="swords">swords</span>
+                        <span class="material-symbols-outlined text-4xl text-secondary" data-icon="groups">groups</span>
                     </div>
-                    <h3 class="font-pixel text-sm text-secondary mb-4">Pellentes ut fringilla</h3>
+                    <h3 class="font-pixel text-sm text-secondary mb-4">{{ t.home_feature2_title }}</h3>
                     <p class="text-on-surface-variant font-body leading-relaxed">
-                        Praesent consequat in odio ut finibus. Duis tincidunt pulvinar risus, amet imperdiet lacus dignissim.
+                        {{ t.home_feature2_body }}
                     </p>
                 </div>
                 <!-- Feature 3 -->
@@ -57,9 +57,9 @@
                     <div class="w-16 h-16 bg-tertiary/10 flex items-center justify-center mb-6">
                         <span class="material-symbols-outlined text-4xl text-tertiary" data-icon="construction">construction</span>
                     </div>
-                    <h3 class="font-pixel text-sm text-tertiary mb-4">Vestibulum</h3>
+                    <h3 class="font-pixel text-sm text-tertiary mb-4">{{ t.home_feature3_title }}</h3>
                     <p class="text-on-surface-variant font-body leading-relaxed">
-                        Nunc maximus suscipit tortor, ut iaculis neque cursus quis. Praesent dapibus leo a est commodo dapibus.
+                        {{ t.home_feature3_body }}
                     </p>
                 </div>
             </div>
@@ -70,26 +70,26 @@
             <div class="max-w-[1440px] mx-auto">
                 <div class="flex justify-between items-end mb-16">
                     <div>
-                        <h2 class="font-pixel text-lg text-primary mb-4">LOREM IPSUM</h2>
-                        <p class="font-headline font-black text-4xl uppercase tracking-tight">Curabitur Non Nulla Sit Amet</p>
+                        <h2 class="font-pixel text-lg text-primary mb-4">{{ t.home_devlog_eyebrow }}</h2>
+                        <p class="font-headline font-black text-4xl uppercase tracking-tight">{{ t.home_devlog_heading }}</p>
                     </div>
-                    <a class="font-pixel text-[10px] text-on-surface-variant hover:text-primary transition-colors pb-2 border-b-2 border-outline-variant" href="/posts">VIDERE OMNIA</a>
+                    <a class="font-pixel text-[10px] text-on-surface-variant hover:text-primary transition-colors pb-2 border-b-2 border-outline-variant" href="/posts">{{ t.home_devlog_see_all }}</a>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <!-- Featured Post -->
                     <div class="lg:col-span-8 group cursor-pointer">
                         <div class="relative aspect-video mb-6 border-4 border-[#1f1f24] overflow-hidden">
                             <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67w9SX1nvypah22A5EiZ1ejd0E9Ejs1iPoimSLd_N5Q-J4wo-RvToPyhfNgL74D_eZTyzSoL4dUEEV1nGE8c8n-bcXgjUc3wcFCotcxX-zcNHz05zdeuTGzcZ8kK6uFoj5-YFTLXvZQCSkSMbJ73EhEFBr9SCQmWykZyed58C6AGoVJ10YmswGwXxhMqAX3mkZKxOR768gTFZRvQomeYo4ZRyaZihtMQ_85-e3-aiT11je9ho0Sx5qO3TKGFUBDSNIg_29Ntm858" />
-                            <div class="absolute top-4 left-4 bg-primary text-on-primary font-pixel text-[8px] px-3 py-1">ALIQUAM</div>
+                            <div class="absolute top-4 left-4 bg-primary text-on-primary font-pixel text-[8px] px-3 py-1">{{ t.home_featured_tag }}</div>
                         </div>
                         <div class="flex gap-4 mb-4">
-                            <span class="font-pixel text-[10px] text-secondary">DATUM LOREM</span>
+                            <span class="font-pixel text-[10px] text-secondary">{{ t.home_featured_date }}</span>
                             <span class="font-pixel text-[10px] text-outline">•</span>
-                            <span class="font-pixel text-[10px] text-outline">BY AUCTOR</span>
+                            <span class="font-pixel text-[10px] text-outline">{{ t.home_featured_author }}</span>
                         </div>
-                        <h3 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors">Suspendisse Potenti: Nullam Ac Tortor</h3>
+                        <h3 class="font-headline font-extrabold text-3xl uppercase mb-4 group-hover:text-primary transition-colors">{{ t.home_featured_title }}</h3>
                         <p class="text-on-surface-variant font-body text-lg leading-relaxed max-w-2xl">
-                            Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Proin eget tortor risus.
+                            {{ t.home_featured_excerpt }}
                         </p>
                     </div>
                     <!-- Secondary Posts Stack -->
@@ -99,8 +99,8 @@
                                 <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi61w4JOH6FqDRefElssOGK3_h-2Ha52bL0f6FH0jPgSbheeBw3rf28sDJJArFOdWJoIKpIiuureu_jDNzONd2ulYTuyr2gGd6EBCWsG2u5BQUz5WcwUhBhIEH8wUtMpQOSYAAFGY97HhFHNmvR0rmiODmhqL457-5ex8hQRmm9fsh3dmRxUHo_2RyMokicpLGoFYtY-YrbT4lb_2jYdj-2KkHzHhayOeOocrfFH4uAj_X3WunqREzVMNtbt2EFH7zpN6l09sBMog" />
                             </div>
                             <div>
-                                <span class="font-pixel text-[8px] text-tertiary block mb-2">DATUM IPSUM</span>
-                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">Pellentesque In Ipsum: Id Orci 2.0</h4>
+                                <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ t.home_post2_date }}</span>
+                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ t.home_post2_title }}</h4>
                             </div>
                         </div>
                         <div class="group cursor-pointer flex gap-4">
@@ -108,8 +108,8 @@
                                 <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsQ345D3V9W9otkX3csK0u3Qb7Crk0JHMZ-lOAtkKDDbpfSjYowOEPoEx9U8R-G-Z8h-nfi9VV7jTqA5OVMvW82Pc2BX3EztAQZpLtsPytGZ-vx7LByyiz_UujW4KbyQFEVJBhnBLr4cAwys5jk7oK7xwPRe0V-9cymKFg-7TgPNCkufG0riuW2UAXll9EHk73pM6XRYNCQA0jbMRbihrwp8vVEpKFpEBWlt8R34dAXhsae12HIYwSDqdRoG8e1UHpusUUmQlz9r8" />
                             </div>
                             <div>
-                                <span class="font-pixel text-[8px] text-tertiary block mb-2">DATUM DOLOR</span>
-                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">Vivamus Magna Justo &amp; Lacinia Eget</h4>
+                                <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ t.home_post3_date }}</span>
+                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ t.home_post3_title }}</h4>
                             </div>
                         </div>
                         <div class="group cursor-pointer flex gap-4">
@@ -117,8 +117,8 @@
                                 <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8GZauqTaQGo7xYcmNfWr4BKVIlOIKp1NbH49NTsuD7bsQXyOPctfw1hPJ5JE9TH1spoVMDXic6nrdyNIRksmyNxvSw2ghwtwCtAlKdz3IDthCcIWHG05hxO_ikoMyxETE7yBEKMJICO0p9WR0G8oR-1TCJOUhBqnC1bvWIZMSeKPqQ1ckWTj23L-HS-_Dv_4pt-x_lhvwk-7E7xmCM3ykQSv9xq0CuHnIAOhH_y2nTOKeiZlieuMRO3EVovs60b10umv04dapUk" />
                             </div>
                             <div>
-                                <span class="font-pixel text-[8px] text-tertiary block mb-2">DATUM AMET</span>
-                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">Vestibulum Ante Ipsum: Primis In Faucibus</h4>
+                                <span class="font-pixel text-[8px] text-tertiary block mb-2">{{ t.home_post4_date }}</span>
+                                <h4 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">{{ t.home_post4_title }}</h4>
                             </div>
                         </div>
                     </div>
@@ -131,13 +131,13 @@
             <div class="max-w-[1000px] mx-auto bg-surface-container-high border-4 border-primary p-12 text-center relative overflow-hidden">
                 <div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
                 <div class="relative z-10">
-                    <h2 class="font-pixel text-xl text-primary mb-6 uppercase tracking-widest">Aliquam Lacinia Nisi</h2>
+                    <h2 class="font-pixel text-xl text-primary mb-6 uppercase tracking-widest">{{ t.home_newsletter_heading }}</h2>
                     <p class="text-xl text-on-surface-variant font-body mb-10 max-w-xl mx-auto">
-                        Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
+                        {{ t.home_newsletter_body }}
                     </p>
                     <div class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
-                        <input class="bg-surface-container-lowest border-2 border-outline text-on-surface font-pixel text-[10px] px-6 py-4 flex-grow focus:border-primary focus:ring-0 outline-none uppercase" placeholder="LOREM@IPSUM.COM" type="email" />
-                        <button class="bg-primary text-on-primary font-pixel text-xs px-8 py-4 border-b-4 border-primary-container active:translate-y-1 transition-all uppercase">SUSCIPIT</button>
+                        <input class="bg-surface-container-lowest border-2 border-outline text-on-surface font-pixel text-[10px] px-6 py-4 flex-grow focus:border-primary focus:ring-0 outline-none uppercase" placeholder="{{ t.home_newsletter_placeholder }}" type="email" />
+                        <button class="bg-primary text-on-primary font-pixel text-xs px-8 py-4 border-b-4 border-primary-container active:translate-y-1 transition-all uppercase">{{ t.home_newsletter_button }}</button>
                     </div>
                 </div>
             </div>

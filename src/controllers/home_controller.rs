@@ -7,12 +7,12 @@ use axum::{
 
 #[derive(Template)]
 #[template(path = "home.html")]
-struct HomeTemplate {
-    t: &'static Translations,
+struct HomeTemplate<'a> {
+    t: &'a Translations,
 }
 
 pub async fn index() -> Response {
-    match (HomeTemplate { t: &i18n::EN }).render() {
+    match (HomeTemplate { t: &i18n::en() }).render() {
         Ok(html) => Html(html).into_response(),
         Err(err) => {
             tracing::error!("Template render error: {}", err);

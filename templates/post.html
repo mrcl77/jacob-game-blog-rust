@@ -15,7 +15,7 @@
                     <span>{{ t.back_all_posts }}</span>
                 </a>
                 <div class="bg-surface-container-low border-l-4 border-primary p-6 block-shadow mb-8">
-                    <h4 class="font-pixel text-[10px] text-primary-dim mb-6">LOG INDEX</h4>
+                    <h4 class="font-pixel text-[10px] text-primary-dim mb-6">{{ t.post_toc_label }}</h4>
                     <nav class="flex flex-col gap-4 font-headline uppercase font-bold tracking-tighter text-sm">
                         <!-- We will keep the default anchor links pointing back to content sections in the template as placeholders -->
                         <a class="text-on-surface hover:text-primary hover:translate-x-2 transition-all duration-200 border-b border-outline-variant/30 pb-2 flex items-center justify-between group"
@@ -116,15 +116,15 @@
                 <div class="absolute -top-[12px] left-12 w-6 h-6 bg-primary rotate-45"></div>
                 <div
                     class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 border-b-4 border-outline-variant pb-6">
-                    <h4 class="font-pixel text-[12px] text-on-surface">LOREM IPSUM DOLOR?</h4>
+                    <h4 class="font-pixel text-[12px] text-on-surface">{{ t.post_comments_heading }}</h4>
                     <div class="flex gap-4">
                         <button
                             class="bg-secondary text-on-secondary px-6 py-2 font-pixel text-[10px] active:translate-y-1 transition-all pixel-border-secondary">
-                            [ AMET ]
+                            {{ t.post_comments_action_secondary }}
                         </button>
                         <button
                             class="bg-primary text-on-primary-container px-6 py-2 font-pixel text-[10px] active:translate-y-1 transition-all pixel-border-primary">
-                            [ IPSUM ]
+                            {{ t.post_comments_action_primary }}
                         </button>
                     </div>
                 </div>
@@ -150,10 +150,9 @@
                         <div class="flex-grow">
                             <textarea
                                 class="w-full bg-surface-container-lowest border-2 border-outline-variant p-4 text-sm focus:outline-none focus:border-primary text-on-surface placeholder:text-outline font-body h-24 resize-none"
-                                placeholder="Scribe commentarium..."></textarea>
+                                placeholder="{{ t.post_comment_placeholder }}"></textarea>
                             <div class="flex justify-end mt-2">
-                                <button class="text-primary font-pixel text-[8px] hover:underline">SUBMITTE
-                                    LOREM</button>
+                                <button class="text-primary font-pixel text-[8px] hover:underline">{{ t.post_comment_submit }}</button>
                             </div>
                         </div>
                     </div>
