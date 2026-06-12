@@ -7,24 +7,6 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use tokio_postgres::Client;
 use tower::util::ServiceExt;
 
-const SCHEMA_SQL: &str = "CREATE TABLE IF NOT EXISTS posts (
-        id SERIAL PRIMARY KEY,
-        title TEXT NOT NULL,
-        content TEXT NOT NULL DEFAULT '',
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-    );
-    ALTER TABLE posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT now();";
-
-async fn ensure_schema(db: &Client) -> Result<(), tokio_postgres::Error> {
-    // Tests run in parallel; on a fresh database two concurrent
-    // CREATE TABLE IF NOT EXISTS calls can collide on the implicit
-    // sequence. The loser retries once the winner's table is visible.
-    if db.batch_execute(SCHEMA_SQL).await.is_err() {
-        db.batch_execute(SCHEMA_SQL).await?;
-    }
-    Ok(())
-}
-
 fn unique_tag(prefix: &str) -> String {
     let nanos = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -62,9 +44,6 @@ async fn seed_inserts_posts() {
         .expect("db should connect for tests");
     let tag = unique_tag("insert");
 
-    ensure_schema(&state.db)
-        .await
-        .expect("posts table should exist");
     cleanup_seed(&state.db, &tag)
         .await
         .expect("cleanup before test should work");
@@ -97,7 +76,6 @@ async fn index_renders_seeded_posts() {
     let db = state.db.clone();
     let tag = unique_tag("index");
 
-    ensure_schema(&db).await.expect("posts table should exist");
     cleanup_seed(&db, &tag)
         .await
         .expect("cleanup before test should work");

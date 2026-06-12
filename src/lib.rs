@@ -19,6 +19,14 @@ use tower_http::services::ServeDir;
 
 pub const DATABASE_URL: &str = "postgres://postgres:postgres@localhost:5432/hello_axum";
 
+const SCHEMA_SQL: &str = "CREATE TABLE IF NOT EXISTS posts (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL DEFAULT '',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+    ALTER TABLE posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT now();";
+
 pub async fn build_state(database_url: &str) -> Result<AppState, tokio_postgres::Error> {
     let (db_client, db_connection) = tokio_postgres::connect(database_url, NoTls).await?;
 
@@ -28,17 +36,12 @@ pub async fn build_state(database_url: &str) -> Result<AppState, tokio_postgres:
         }
     });
 
-    db_client
-        .batch_execute(
-            "CREATE TABLE IF NOT EXISTS posts (
-                id SERIAL PRIMARY KEY,
-                title TEXT NOT NULL,
-                content TEXT NOT NULL DEFAULT '',
-                created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-            );
-            ALTER TABLE posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT now();",
-        )
-        .await?;
+    // Concurrent instances starting against a fresh database can race
+    // CREATE TABLE IF NOT EXISTS on the implicit sequence; the loser
+    // retries once the winner's table has been committed.
+    if db_client.batch_execute(SCHEMA_SQL).await.is_err() {
+        db_client.batch_execute(SCHEMA_SQL).await?;
+    }
 
     Ok(AppState {
         db: Arc::new(db_client),
