@@ -141,7 +141,7 @@ fn markdown_to_plain_preview(markdown: &str, max_sentences: usize) -> String {
     let chars: Vec<char> = plain.chars().collect();
     for (i, ch) in chars.iter().enumerate() {
         if (*ch == '.' || *ch == '!' || *ch == '?')
-            && chars.get(i + 1).map_or(true, |c| c.is_whitespace())
+            && chars.get(i + 1).is_none_or(|c| c.is_whitespace())
         {
             count += 1;
             if count >= max_sentences {
@@ -162,6 +162,9 @@ mod tests {
     fn preview_strips_markdown() {
         let md = "# Header\n\n**Bold text** and *italic*. [A link](http://example.com). ![image](img.png)\n\n`code` and ~~strikethrough~~.";
         let preview = markdown_to_plain_preview(md, 3);
-        assert_eq!(preview, "Header Bold text and italic. A link. code and strikethrough.");
+        assert_eq!(
+            preview,
+            "Header Bold text and italic. A link. code and strikethrough."
+        );
     }
 }

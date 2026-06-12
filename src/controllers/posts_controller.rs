@@ -37,7 +37,12 @@ pub async fn index(State(state): State<AppState>) -> Response {
     match Post::all(&state.db).await {
         Ok(posts) => {
             let has_posts = !posts.is_empty();
-            HtmlTemplate(IndexTemplate { posts, has_posts, t: &i18n::en() }).into_response()
+            HtmlTemplate(IndexTemplate {
+                posts,
+                has_posts,
+                t: &i18n::en(),
+            })
+            .into_response()
         }
         Err(err) => {
             tracing::error!("Database query error: {}", err);
@@ -55,7 +60,11 @@ struct ShowTemplate<'a> {
 
 pub async fn show(State(state): State<AppState>, Path(id): Path<i32>) -> Response {
     match Post::find(&state.db, id).await {
-        Ok(Some(post)) => HtmlTemplate(ShowTemplate { post, t: &i18n::en() }).into_response(),
+        Ok(Some(post)) => HtmlTemplate(ShowTemplate {
+            post,
+            t: &i18n::en(),
+        })
+        .into_response(),
         Ok(None) => StatusCode::NOT_FOUND.into_response(),
         Err(err) => {
             tracing::error!("Database query error: {}", err);
