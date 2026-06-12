@@ -1,6 +1,6 @@
-# Hello Axum
+# Jacob Game Blog
 
-A minimal blog application with an admin panel, built with Rust and Axum.
+A blog application with an admin panel for the Jacob game, built with Rust and Axum.
 
 ## Features
 
